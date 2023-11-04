@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
+  },
+  "extends": "../tsconfig.json",
+  "include": ["src"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
