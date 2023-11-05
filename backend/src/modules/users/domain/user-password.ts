@@ -25,10 +25,8 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
     let hashed: string
     if (this.isAlreadyHashed()) {
       hashed = this.props.value
-      console.log('isAlreadyHashed', hashed, plainTextPassword)
       return this.bcryptCompare(plainTextPassword, hashed)
     } else {
-      console.log('not hashed', this.props.value, plainTextPassword)
       return this.props.value === plainTextPassword
     }
   }

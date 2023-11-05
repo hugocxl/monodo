@@ -10,6 +10,7 @@ const envVarsSchema = Joi.object()
       .required(),
     PORT: Joi.number().default(3000),
     MONGODB_URL: Joi.string().required().description('Mongo DB url'),
+    DB_NAME: Joi.string().required().description('Mongo DB name'),
     CLIENT_URL: Joi.string().required().description('Client url')
   })
   .unknown()
@@ -27,24 +28,7 @@ export const config = {
   port: envVars.PORT,
   clientUrl: envVars.CLIENT_URL,
   mongoose: {
-    url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
-    options: {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
-  },
-  jwt: {
-    secret: envVars.JWT_SECRET,
-    accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
-    refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
-    resetPasswordExpirationMinutes:
-      envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
-    verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
-    cookieOptions: {
-      httpOnly: true,
-      secure: envVars.NODE_ENV === 'production',
-      signed: true
-    }
+    url: envVars.MONGODB_URL,
+    dbName: envVars.DB_NAME
   }
 }

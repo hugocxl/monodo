@@ -5,7 +5,7 @@ import { logger } from '@/shared/utils'
 export function startDb() {
   mongoose
     .connect(config.mongoose.url, {
-      dbName: 'monodo'
+      dbName: config.mongoose.dbName
     })
     .then(() => {
       logger.info('DB', 'Connected to database ✅')

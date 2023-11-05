@@ -15,7 +15,10 @@ import type { Application } from 'express'
 
 const app: Application = express()
 const authSessionMiddleware = session({
-  store: mongoStore.create({ mongoUrl: config.mongoose.url }),
+  store: mongoStore.create({
+    mongoUrl: config.mongoose.url,
+    dbName: config.mongoose.dbName
+  }),
   secret: 'auth',
   resave: false,
   saveUninitialized: true,

@@ -9,8 +9,12 @@ interface UserProps {
 }
 
 export class User extends Entity<UserProps> {
-  private constructor(props: UserProps) {
-    super(props)
+  private constructor(props: UserProps, id?: string) {
+    super(props, id)
+  }
+
+  get id() {
+    return this._id
   }
 
   get email(): UserEmail {
@@ -21,7 +25,7 @@ export class User extends Entity<UserProps> {
     return this.props.password
   }
 
-  public static create(props: UserProps): Result<User> {
+  public static create(props: UserProps, id?: string): Result<User> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: props.password, argumentName: 'password' },
       { argument: props.email, argumentName: 'email' }
@@ -31,9 +35,12 @@ export class User extends Entity<UserProps> {
       return Result.fail<User>(guardResult.getError())
     }
 
-    const user = new User({
-      ...props
-    })
+    const user = new User(
+      {
+        ...props
+      },
+      id
+    )
 
     return Result.ok<User>(user)
   }

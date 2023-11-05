@@ -19,10 +19,13 @@ export class UserMapper implements Mapper<User> {
       hashed: true
     })
 
-    const userOrError = User.create({
-      password: userPasswordOrError.getValue(),
-      email: userEmailOrError.getValue()
-    })
+    const userOrError = User.create(
+      {
+        password: userPasswordOrError.getValue(),
+        email: userEmailOrError.getValue()
+      },
+      raw._id.toString()
+    )
 
     if (userOrError.isFailure) {
       console.log(userOrError.getError())
