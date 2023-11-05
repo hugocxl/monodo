@@ -1,0 +1,16 @@
+import mongoose from 'mongoose'
+import { config } from '@/config'
+import { logger } from '@/shared/utils'
+
+export function startDb() {
+  mongoose
+    .connect(config.mongoose.url, {
+      dbName: 'monodo'
+    })
+    .then(() => {
+      logger.info('DB', 'Connected to database ✅')
+    })
+    .catch(() => {
+      logger.error('DB', 'Error connecting to database ❌')
+    })
+}

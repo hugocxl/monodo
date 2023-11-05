@@ -13,7 +13,10 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "noImplicitReturns": false,
-    "preserveSymlinks": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "preserveSymlinks": false,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
