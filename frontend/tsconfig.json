@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@styled-system/*": ["./styled-system/*"]
+    },
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
   },
   "extends": "../tsconfig.json",
-  "include": ["src"],
+  "include": ["src", "styled-system"],
   "references": [
     {
       "path": "./tsconfig.node.json"

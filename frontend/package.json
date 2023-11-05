@@ -11,13 +11,17 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "start": "vite preview"
+    "start": "vite preview",
+    "prepare": "panda codegen"
   },
   "dependencies": {
+    "date-fns": "^2",
+    "lucide-react": "^0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@vitejs/plugin-react": "^4",
