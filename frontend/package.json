@@ -18,7 +18,9 @@
     "date-fns": "^2",
     "lucide-react": "^0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-calendar": "^4.6.1",
+    "react-dom": "^18",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@pandacss/dev": "^0",

@@ -26,38 +26,24 @@ const semanticTokens = defineSemanticTokens({
     }
   },
   colors: {
-    color: {
-      primary: {
-        value: {
-          _osLight: 'rgb(179, 146, 240)',
-          _osDark: 'rgb(179, 146, 240)'
-        }
-      }
-    },
     bg: {
       primary: {
         value: {
           _osLight: hsl(100),
-          _osDark: hsl(4)
+          _osDark: hsl(10)
         }
       },
       secondary: {
         value: {
           _osLight: hsl(97),
-          _osDark: hsl(12)
-        }
-      },
-      code: {
-        value: {
-          _osLight: hsl(97),
-          _osDark: hsl(0)
+          _osDark: hsl(14)
         }
       }
     },
     border: {
       primary: {
         value: {
-          _osLight: hsl(80),
+          _osLight: hsl(92),
           _osDark: hsl(15)
         }
       },
@@ -80,49 +66,23 @@ const semanticTokens = defineSemanticTokens({
 })
 
 const globalCss = defineGlobalStyles({
-  html: {
+  body: {
     backgroundColor: 'bg.primary',
     textRendering: 'optimizeLegibility',
     color: 'text.default',
     fontSize: '14px',
-    lineHeight: 'relaxed',
-    smDown: {
-      // lineHeight: 'sm',
-      // fontSize: '12px'
+    lineHeight: 'relaxed'
+  },
+  input: {
+    bg: 'none',
+    borderBottom: 'primary',
+    width: '100%',
+    fontSize: 'larger',
+    padding: 8,
+    borderRadius: 4,
+    _focus: {
+      outline: 'none'
     }
-  },
-  a: {
-    color: 'rgb(0, 138, 230)',
-    textDecoration: 'underline',
-    textDecorationThickness: 1,
-    textUnderlineOffset: 2,
-    transition: 'color 0.2s ease-in-out',
-    '&:hover': {
-      color: 'text.dimmed'
-    }
-  },
-  hr: {
-    borderColor: 'border.secondary',
-    borderStyle: 'solid'
-  },
-  ul: {
-    listStyle: 'square',
-    paddingInlineStart: 8,
-    marginTop: 6
-  },
-  li: {
-    marginBottom: 4
-  },
-  p: {
-    marginTop: 6
-  },
-  code: {
-    display: 'inline-block',
-    fontFamily: 'monospace',
-    fontSize: '0.9rem',
-    bg: 'bg.code',
-    borderRadius: 'md',
-    border: 'primary'
   },
   '::selection': {
     color: 'black',
