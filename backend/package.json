@@ -31,8 +31,7 @@
     "http-status": "^1",
     "joi": "^17",
     "mongoose": "^8",
-    "morgan": "^1.10.0",
-    "validator": "^13"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
@@ -42,7 +41,6 @@
     "@types/cors": "2",
     "@types/express": "^4",
     "@types/express-session": "^1",
-    "@types/morgan": "^1",
-    "@types/validator": "^13"
+    "@types/morgan": "^1"
   }
 }

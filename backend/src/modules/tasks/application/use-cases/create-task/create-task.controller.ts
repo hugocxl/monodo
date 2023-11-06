@@ -1,9 +1,6 @@
 // Dependencies
 import { BaseController } from '@/shared/infra/http/models'
-import {
-  PasswordDoesntMatchError,
-  UserEmailDoesntExistError
-} from './create-task.error'
+import { UserDoesntExistError } from './create-task.error'
 
 // Types
 import type { Request, Response } from 'express'
@@ -28,10 +25,8 @@ export class CreateTaskController extends BaseController {
         const error = result.value
 
         switch (error.constructor) {
-          case UserEmailDoesntExistError:
+          case UserDoesntExistError:
             return this.notFound(res, error.getError().message)
-          case PasswordDoesntMatchError:
-            return this.clientError(res, error.getError().message)
           default: {
             const defaultError = error.getError()
             return this.fail(

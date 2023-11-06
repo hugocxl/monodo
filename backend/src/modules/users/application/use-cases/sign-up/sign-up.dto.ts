@@ -5,5 +5,5 @@ export type SignUpDto = {
 
 export type SignUpResponseDto = {
   email: string
-  ok: true
+  id: string
 }

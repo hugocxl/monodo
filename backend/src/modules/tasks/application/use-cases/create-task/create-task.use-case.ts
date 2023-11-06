@@ -1,10 +1,7 @@
 // Dependencies
 import { Result, AppError, left, right } from '@/shared/core'
 import { Task, TaskDescription, TaskTitle } from '@/modules/tasks/domain'
-import {
-  TaskEmailDoesntExistError,
-  PasswordDoesntMatchError
-} from './create-task.error'
+import { UserDoesntExistError } from './create-task.error'
 
 // Types
 import type { CreateTaskDto, CreateTaskResponseDto } from './create-task.dto'
@@ -44,17 +41,18 @@ export class CreateTaskUseCase
       const title = titleOrError.getValue()
       const description = descriptionOrError.getValue()
 
-      // const user = await this.usersRepository.getUserByEmail(email.value)
+      const user = await this.usersRepository.getUserById(createTaskDto.userId)
 
-      // const userFound = !!user
+      const userFound = !!user
 
-      // if (!userFound) {
-      //   return left(
-      //     new TaskEmailDoesntExistError(email.value)
-      //   ) as CreateTaskResponse
-      // }
+      if (!userFound) {
+        return left(
+          new UserDoesntExistError(createTaskDto.userId)
+        ) as CreateTaskResponse
+      }
 
       const taskOrError: Result<Task> = Task.create({
+        userId: createTaskDto.userId,
         title,
         description
       })

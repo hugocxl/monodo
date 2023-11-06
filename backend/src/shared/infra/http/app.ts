@@ -17,12 +17,13 @@ const app: Application = express()
 const authSessionMiddleware = session({
   store: mongoStore.create({
     mongoUrl: config.mongoose.url,
-    dbName: config.mongoose.dbName
+    dbName: config.mongoose.dbName,
+    ttl: 24 * 60 * 60
   }),
   secret: 'auth',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: config.env !== 'production', maxAge: 24 * 60 * 60 * 1000 }
 })
 const corsMiddleware = cors({
   credentials: true,

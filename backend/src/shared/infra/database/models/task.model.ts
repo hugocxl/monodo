@@ -10,10 +10,13 @@ const taskSchema = new mongoose.Schema<Task>(
       type: String,
       required: true
     },
-
     description: {
       type: String,
       required: true
+    },
+    userId: {
+      type: String,
+      ref: 'User'
     }
   },
   {

@@ -5,4 +5,5 @@ export type SignInDto = {
 
 export type SignInResponseDto = {
   email: string
+  id: string
 }

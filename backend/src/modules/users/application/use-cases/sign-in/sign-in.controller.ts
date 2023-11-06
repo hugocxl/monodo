@@ -6,9 +6,10 @@ import {
 } from './sign-in.error'
 
 // Types
-import type { Request, Response } from 'express'
+import type { Response } from 'express'
 import type { SignInDto, SignInResponseDto } from './sign-in.dto'
 import type { SignInUseCase } from './sign-in.use-case'
+import type { AuthRequest } from '@/shared/infra'
 
 export class SignInController extends BaseController {
   private useCase: SignInUseCase
@@ -18,7 +19,7 @@ export class SignInController extends BaseController {
     this.useCase = useCase
   }
 
-  async executeImpl(req: Request, res: Response): Promise<any> {
+  async executeImpl(req: AuthRequest, res: Response): Promise<any> {
     const dto = req.body as SignInDto
 
     try {
@@ -41,6 +42,7 @@ export class SignInController extends BaseController {
           }
         }
       } else {
+        req.session.logged = true
         return this.ok<SignInResponseDto>(res, result.value.getValue())
       }
     } catch (err) {

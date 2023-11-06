@@ -50,10 +50,13 @@ export class SignUpUseCase
 
       const user: User = userOrError.getValue()
 
-      await this.usersRepository.create(user)
+      const repoUser = await this.usersRepository.create(user)
 
       return right(
-        Result.ok<SignUpResponseDto>({ email: user.email.value, ok: true })
+        Result.ok<SignUpResponseDto>({
+          email: user.email.value,
+          id: repoUser?.id as string
+        })
       )
     } catch (err) {
       return left(new AppError(err)) as SignUpResponse

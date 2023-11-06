@@ -1,10 +1,15 @@
+// Dependencies
 import { Guard, Result } from '@/shared/core'
 import { Entity } from '@/shared/domain'
+
+// Types
 import type { TaskDescription, TaskTitle } from '.'
+import type { TaskUserId } from './task-user-id'
 
 interface TaskProps {
   description: TaskDescription
   title: TaskTitle
+  userId: TaskUserId
 }
 
 export class Task extends Entity<TaskProps> {
@@ -14,6 +19,10 @@ export class Task extends Entity<TaskProps> {
 
   get id() {
     return this._id
+  }
+
+  get userId(): TaskUserId {
+    return this.props.userId
   }
 
   get description(): TaskDescription {
@@ -26,6 +35,7 @@ export class Task extends Entity<TaskProps> {
 
   public static create(props: TaskProps, id?: string): Result<Task> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
+      { argument: props.userId, argumentName: 'userId' },
       { argument: props.title, argumentName: 'title' },
       { argument: props.description, argumentName: 'description' }
     ])
@@ -34,13 +44,8 @@ export class Task extends Entity<TaskProps> {
       return Result.fail<Task>(guardResult.getError())
     }
 
-    const user = new Task(
-      {
-        ...props
-      },
-      id
-    )
+    const task = new Task(props, id)
 
-    return Result.ok<Task>(user)
+    return Result.ok<Task>(task)
   }
 }

@@ -52,7 +52,12 @@ export class SignInUseCase
         return left(new PasswordDoesntMatchError()) as SignInResponse
       }
 
-      return right(Result.ok<SignInResponseDto>({ email: user.email.value }))
+      return right(
+        Result.ok<SignInResponseDto>({
+          email: user.email.value,
+          id: user.id as string
+        })
+      )
     } catch (err) {
       return left(new AppError(err)) as SignInResponse
     }

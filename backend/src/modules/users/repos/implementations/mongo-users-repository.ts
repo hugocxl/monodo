@@ -14,9 +14,23 @@ export class MongoUsersRepository implements UsersRepository {
   }
 
   async getUserByEmail(userEmail: UserEmail | string) {
-    const user = await this.model.find({ email: userEmail })
+    const user = await this.model.findOne({ email: userEmail })
 
-    return UserMapper.toDomain(user[0])
+    if (user) {
+      return UserMapper.toDomain(user)
+    }
+
+    return null
+  }
+
+  async getUserById(id: string) {
+    const user = await this.model.findOne({ _id: id })
+
+    if (user) {
+      return UserMapper.toDomain(user)
+    }
+
+    return null
   }
 
   async exists(userEmail: UserEmail | string) {
@@ -26,13 +40,9 @@ export class MongoUsersRepository implements UsersRepository {
   }
 
   async create(user: User) {
-    const exists = await this.exists(user.email.value)
+    const rawSequelizeUser = await UserMapper.toPersistence(user)
+    const response = await this.model.create(rawSequelizeUser)
 
-    if (!exists) {
-      const rawSequelizeUser = await UserMapper.toPersistence(user)
-      await this.model.create(rawSequelizeUser)
-    }
-
-    return
+    return UserMapper.toDomain(response)
   }
 }

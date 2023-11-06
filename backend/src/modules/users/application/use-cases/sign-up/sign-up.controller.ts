@@ -3,9 +3,10 @@ import { BaseController } from '@/shared/infra/http/models'
 import { EmailAlreadyTakenError } from './sign-up.error'
 
 // Types
-import type { Request, Response } from 'express'
+import type { Response } from 'express'
 import type { SignUpDto, SignUpResponseDto } from './sign-up.dto'
 import type { SignUpUseCase } from './sign-up.use-case'
+import type { AuthRequest } from '@/shared/infra'
 
 export class SignUpController extends BaseController {
   private useCase: SignUpUseCase
@@ -15,7 +16,7 @@ export class SignUpController extends BaseController {
     this.useCase = useCase
   }
 
-  async executeImpl(req: Request, res: Response): Promise<any> {
+  async executeImpl(req: AuthRequest, res: Response): Promise<any> {
     const dto = req.body as SignUpDto
 
     try {
@@ -36,6 +37,7 @@ export class SignUpController extends BaseController {
           }
         }
       } else {
+        req.session.logged = true
         return this.ok<SignUpResponseDto>(res, result.value.getValue())
       }
     } catch (err) {
