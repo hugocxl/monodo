@@ -1,5 +1,6 @@
 // Dependencies
 import { Result, AppError, left, right } from '@/shared/core'
+import { TaskMapper } from '@/modules/tasks/mappers'
 import { TaskTitle } from '@/modules/tasks/domain'
 import { UserDoesntExistError } from './search-tasks.error'
 
@@ -48,10 +49,7 @@ export class SearchTasksUseCase
 
       const tasks = await this.tasksRepository.getTasksByTitle(title.value)
 
-      const tasksDto = tasks.map(task => ({
-        title: task?.title.value as string,
-        description: task?.description.value as string
-      }))
+      const tasksDto = tasks.map(TaskMapper.toDto)
 
       return right(Result.ok<SearchTasksResponseDto>(tasksDto))
     } catch (err) {

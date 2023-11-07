@@ -1,6 +1,11 @@
 // Dependencies
 import { Result, AppError, left, right } from '@/shared/core'
-import { Task, TaskDescription, TaskTitle } from '@/modules/tasks/domain'
+import {
+  Task,
+  TaskDate,
+  TaskDescription,
+  TaskTitle
+} from '@/modules/tasks/domain'
 import { UserDoesntExistError } from './create-task.error'
 
 // Types
@@ -9,6 +14,7 @@ import type { CreateTaskResponse } from './create-task.response'
 import type { UseCase } from '@/shared/core'
 import type { TasksRepository } from '@/modules/tasks/repos'
 import type { UsersRepository } from '@/modules/users/repos'
+import { TaskMapper } from '@/modules/tasks/mappers'
 
 export class CreateTaskUseCase
   implements UseCase<CreateTaskDto, Promise<CreateTaskResponse>>
@@ -27,10 +33,15 @@ export class CreateTaskUseCase
   async execute(createTaskDto: CreateTaskDto): Promise<CreateTaskResponse> {
     try {
       const titleOrError = TaskTitle.create(createTaskDto.title)
+      const dateOrError = TaskDate.create(createTaskDto.date)
       const descriptionOrError = TaskDescription.create(
         createTaskDto.description
       )
-      const dtoResult = Result.combine([titleOrError, descriptionOrError])
+      const dtoResult = Result.combine([
+        titleOrError,
+        descriptionOrError,
+        dateOrError
+      ])
 
       if (dtoResult.isFailure) {
         return left(
@@ -40,6 +51,7 @@ export class CreateTaskUseCase
 
       const title = titleOrError.getValue()
       const description = descriptionOrError.getValue()
+      const date = dateOrError.getValue()
 
       const user = await this.usersRepository.getUserById(createTaskDto.userId)
 
@@ -54,6 +66,7 @@ export class CreateTaskUseCase
       const taskOrError: Result<Task> = Task.create({
         userId: createTaskDto.userId,
         title,
+        date,
         description
       })
 
@@ -67,12 +80,7 @@ export class CreateTaskUseCase
 
       await this.tasksRepository.create(task)
 
-      return right(
-        Result.ok<CreateTaskResponseDto>({
-          title: task.title.value,
-          description: task.description.value
-        })
-      )
+      return right(Result.ok<CreateTaskResponseDto>(TaskMapper.toDto(task)))
     } catch (err) {
       return left(new AppError(err)) as CreateTaskResponse
     }

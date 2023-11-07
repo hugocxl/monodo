@@ -14,9 +14,11 @@ export class MongoTasksRepository implements TasksRepository {
   }
 
   async getTaskById(id: string) {
-    const task = await this.model.find({ id })
+    const task = await this.model.findOne({ id })
 
-    return TaskMapper.toDomain(task[0])
+    if (task) return TaskMapper.toDomain(task)
+
+    return null
   }
 
   async getTasksByTitle(titleQuery: string) {
@@ -31,7 +33,9 @@ export class MongoTasksRepository implements TasksRepository {
 
     if (!tasks) return []
 
-    return tasks.map(TaskMapper.toDomain)
+    return tasks
+      .filter(task => Boolean(task))
+      .map(TaskMapper.toDomain) as Task[]
   }
 
   async create(task: Task) {
