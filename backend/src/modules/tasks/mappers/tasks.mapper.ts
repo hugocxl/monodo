@@ -10,6 +10,7 @@ export class TaskMapper implements Mapper<Task> {
     return {
       title: task.title.value,
       description: task.description.value,
+      completed: task.completed,
       date: task.date.value.toString()
     }
   }
@@ -22,6 +23,7 @@ export class TaskMapper implements Mapper<Task> {
     const taskOrError = Task.create(
       {
         userId: raw.userId,
+        completed: raw.completed,
         description: taskDescriptionOrError.getValue(),
         date: taskDateOrError.getValue(),
         title: taskTitleOrError.getValue()
@@ -39,6 +41,7 @@ export class TaskMapper implements Mapper<Task> {
 
   public static async toPersistence(task: Task): Promise<any> {
     return {
+      completed: task.completed,
       title: task.title.value,
       description: task.description.value,
       date: task.date.value.toString(),

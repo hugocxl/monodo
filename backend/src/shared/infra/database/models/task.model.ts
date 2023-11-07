@@ -18,6 +18,10 @@ const taskSchema = new mongoose.Schema<Task>(
       type: String,
       required: true
     },
+    completed: {
+      type: Boolean,
+      required: true
+    },
     userId: {
       type: String,
       required: true

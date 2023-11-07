@@ -3,7 +3,7 @@ import { Guard, Result } from '@/shared/core'
 import { Entity } from '@/shared/domain'
 
 // Types
-import type { TaskDescription, TaskTitle } from '.'
+import type { TaskCompleted, TaskDescription, TaskTitle } from '.'
 import type { TaskUserId } from './task-user-id'
 import type { TaskDate } from './task-date'
 
@@ -12,6 +12,7 @@ interface TaskProps {
   title: TaskTitle
   userId: TaskUserId
   date: TaskDate
+  completed: TaskCompleted
 }
 
 export class Task extends Entity<TaskProps> {
@@ -25,6 +26,10 @@ export class Task extends Entity<TaskProps> {
 
   get userId(): TaskUserId {
     return this.props.userId
+  }
+
+  get completed(): TaskCompleted {
+    return this.props.completed
   }
 
   get date(): TaskDate {

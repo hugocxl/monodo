@@ -64,6 +64,7 @@ export class CreateTaskUseCase
       }
 
       const taskOrError: Result<Task> = Task.create({
+        completed: false,
         userId: createTaskDto.userId,
         title,
         date,
