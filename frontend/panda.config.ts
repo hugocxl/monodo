@@ -74,23 +74,27 @@ const globalCss = defineGlobalStyles({
     lineHeight: 'relaxed'
   },
   hr: {
-    borderColor: 'border.secondary',
+    borderColor: 'border.primary',
     borderStyle: 'solid'
+  },
+  button: {
+    borderRadius: 8,
+    padding: '12px 24px',
+    bg: 'text.default',
+    color: 'bg.primary',
+    fontWeight: 'bold',
+    cursor: 'poi'
   },
   input: {
     bg: 'none',
-    borderBottom: 'primary',
+    border: 'primary',
     width: '100%',
     fontSize: 'larger',
-    padding: 8,
-    borderRadius: 4,
+    padding: '9px 16px',
+    borderRadius: 8,
     _focus: {
       outline: 'none'
     }
-  },
-  '::selection': {
-    color: 'black',
-    background: 'color.primary'
   }
 })
 

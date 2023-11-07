@@ -1,31 +1,22 @@
-//Components
-import { Header } from '../header'
-import { Box } from '..'
+// Dependencies
+import { styled } from '@styled-system/jsx'
+import { Suspense } from '../suspense'
 
 // Types
 import type { AppShellProps } from './app-shell.types'
-import { styled } from '@styled-system/jsx'
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <Box
+    <styled.main
       css={{
-        display: 'grid',
-        gridTemplateRows: 'auto 1fr',
+        position: 'relative',
         height: '100dvh',
         maxWidth: '480px',
         margin: '0 auto',
         px: 32
       }}
     >
-      <Header />
-      <styled.main
-        css={{
-          position: 'relative'
-        }}
-      >
-        {children}
-      </styled.main>
-    </Box>
+      <Suspense>{children}</Suspense>
+    </styled.main>
   )
 }

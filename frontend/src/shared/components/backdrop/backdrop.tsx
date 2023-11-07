@@ -1,12 +1,12 @@
 // Components
-import { Box } from '../box'
+import { styled } from '@styled-system/jsx'
 
 // Types
 import type { BackdropProps } from './backdrop.types'
 
 export function Backdrop({ open, onClose, children }: BackdropProps) {
   return (
-    <Box
+    <styled.div
       onClick={onClose}
       css={{
         zIndex: 100,
@@ -22,6 +22,6 @@ export function Backdrop({ open, onClose, children }: BackdropProps) {
       }}
     >
       {children}
-    </Box>
+    </styled.div>
   )
 }

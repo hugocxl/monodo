@@ -1,13 +1,19 @@
 // Dependencies
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient } from 'react-query'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // Components
+import { QueryClientProvider } from 'react-query'
 import { AppShell } from '@/shared/components'
-import { Home } from './modules/home'
+import { HomePage } from './modules/home'
 import { AuthPage } from './modules/auth'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { retry: false, suspense: true, cacheTime: 60 * 60 * 24 * 1000 },
+    mutations: { retry: false }
+  }
+})
 
 const router = createBrowserRouter([
   {
@@ -20,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/:date',
-    element: <Home />
+    element: <HomePage />
   }
 ])
 

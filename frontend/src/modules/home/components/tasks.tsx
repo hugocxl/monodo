@@ -1,14 +1,18 @@
-import { useTasksByDate } from '@/shared/hooks'
+// Dependencies
 import { styled } from '@styled-system/jsx'
-import { useSearchParams } from 'react-router-dom'
-import { Quote } from '.'
+
+// Hooks
+import { useSelectedDate, useTasksByDateQuery } from '@/shared/hooks'
+
+// Components
+import { Suspense } from '@/shared/components'
+import { Quote } from './quote'
 
 export function Tasks() {
-  const [searchParams] = useSearchParams()
-  const date = searchParams.get('date') ?? new Date()
+  const [date] = useSelectedDate()
 
-  const tasks = useTasksByDate({
-    date: date as string,
+  const tasks = useTasksByDateQuery({
+    date: date.toLocaleString(),
     userId: '65479b51d6ca25452d479bfc'
   })
 
@@ -20,7 +24,15 @@ export function Tasks() {
             No tasks for today
           </styled.span>
           <styled.hr my={20} />
-          <Quote />
+          <Suspense
+            fallback={
+              <styled.span css={{ color: 'text.dimmed', textAlign: 'center' }}>
+                Loading quote for this day...
+              </styled.span>
+            }
+          >
+            <Quote />
+          </Suspense>
         </styled.div>
       )
 

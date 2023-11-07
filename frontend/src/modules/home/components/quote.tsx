@@ -2,10 +2,10 @@
 import { styled } from '@styled-system/jsx'
 
 // Hooks
-import { useQuote } from '@/shared/hooks'
+import { useQuoteQuery } from '@/shared/hooks'
 
 export function Quote() {
-  const { isLoading, data } = useQuote()
+  const { isLoading, data } = useQuoteQuery()
 
   function renderQuote() {
     if (isLoading) return <p>Loading...</p>
