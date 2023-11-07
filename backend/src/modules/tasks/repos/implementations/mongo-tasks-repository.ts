@@ -39,9 +39,15 @@ export class MongoTasksRepository implements TasksRepository {
   }
 
   async create(task: Task) {
-    const rawMongoTask = await TaskMapper.toPersistence(task)
-    await this.model.create(rawMongoTask)
+    const rawTask = await TaskMapper.toPersistence(task)
+    const dbResponse = await this.model.create(rawTask)
 
-    return
+    return TaskMapper.toDomain(dbResponse) as Task
+  }
+  async update(task: Task) {
+    const rawTask = await TaskMapper.toPersistence(task)
+    const dbResponse = await this.model.findByIdAndUpdate(task.id, rawTask)
+
+    return TaskMapper.toDomain(dbResponse) as Task
   }
 }

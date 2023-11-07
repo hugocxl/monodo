@@ -6,18 +6,18 @@ import {
   TaskDescription,
   TaskTitle
 } from '@/modules/tasks/domain'
-import { UserDoesntExistError } from './create-task.error'
+import { UserDoesntExistError } from './update-task.error'
 
 // Types
-import type { CreateTaskDto, CreateTaskResponseDto } from './create-task.dto'
-import type { CreateTaskResponse } from './create-task.response'
+import type { UpdateTaskDto, UpdateTaskResponseDto } from './update-task.dto'
+import type { UpdateTaskResponse } from './update-task.response'
 import type { UseCase } from '@/shared/core'
 import type { TasksRepository } from '@/modules/tasks/repos'
 import type { UsersRepository } from '@/modules/users/repos'
 import { TaskMapper } from '@/modules/tasks/mappers'
 
-export class CreateTaskUseCase
-  implements UseCase<CreateTaskDto, Promise<CreateTaskResponse>>
+export class UpdateTaskUseCase
+  implements UseCase<UpdateTaskDto, Promise<UpdateTaskResponse>>
 {
   private usersRepository: UsersRepository
   private tasksRepository: TasksRepository
@@ -30,12 +30,12 @@ export class CreateTaskUseCase
     this.tasksRepository = tasksRepository
   }
 
-  async execute(createTaskDto: CreateTaskDto): Promise<CreateTaskResponse> {
+  async execute(updateTaskDto: UpdateTaskDto): Promise<UpdateTaskResponse> {
     try {
-      const titleOrError = TaskTitle.create(createTaskDto.title)
-      const dateOrError = TaskDate.create(createTaskDto.date)
+      const titleOrError = TaskTitle.create(updateTaskDto.title)
+      const dateOrError = TaskDate.create(updateTaskDto.date)
       const descriptionOrError = TaskDescription.create(
-        createTaskDto.description
+        updateTaskDto.description
       )
       const dtoResult = Result.combine([
         titleOrError,
@@ -46,46 +46,49 @@ export class CreateTaskUseCase
       if (dtoResult.isFailure) {
         return left(
           Result.fail<void>(dtoResult.getError())
-        ) as CreateTaskResponse
+        ) as UpdateTaskResponse
       }
 
       const title = titleOrError.getValue()
       const description = descriptionOrError.getValue()
       const date = dateOrError.getValue()
 
-      const user = await this.usersRepository.getUserById(createTaskDto.userId)
+      const user = await this.usersRepository.getUserById(updateTaskDto.userId)
 
       const userFound = !!user
 
       if (!userFound) {
         return left(
-          new UserDoesntExistError(createTaskDto.userId)
-        ) as CreateTaskResponse
+          new UserDoesntExistError(updateTaskDto.userId)
+        ) as UpdateTaskResponse
       }
 
-      const taskOrError: Result<Task> = Task.create({
-        completed: false,
-        userId: createTaskDto.userId,
-        title,
-        date,
-        description
-      })
+      const taskOrError: Result<Task> = Task.create(
+        {
+          completed: updateTaskDto.completed,
+          userId: updateTaskDto.userId,
+          title,
+          date,
+          description
+        },
+        updateTaskDto.id
+      )
 
       if (taskOrError.isFailure) {
         return left(
           Result.fail<Task>(taskOrError.getError().toString())
-        ) as CreateTaskResponse
+        ) as UpdateTaskResponse
       }
 
       const task: Task = taskOrError.getValue()
 
-      const newTask = await this.tasksRepository.create(task)
+      const updatedTask = await this.tasksRepository.update(task)
 
       return right(
-        Result.ok<CreateTaskResponseDto>(TaskMapper.toDto(newTask as Task))
+        Result.ok<UpdateTaskResponseDto>(TaskMapper.toDto(updatedTask as Task))
       )
     } catch (err) {
-      return left(new AppError(err)) as CreateTaskResponse
+      return left(new AppError(err)) as UpdateTaskResponse
     }
   }
 }

@@ -8,9 +8,10 @@ import type { TaskDto } from '../dto'
 export class TaskMapper implements Mapper<Task> {
   public static toDto(task: Task): TaskDto {
     return {
+      id: task.id as string,
+      completed: task.completed,
       title: task.title.value,
       description: task.description.value,
-      completed: task.completed,
       date: task.date.value.toString()
     }
   }
@@ -41,6 +42,7 @@ export class TaskMapper implements Mapper<Task> {
 
   public static async toPersistence(task: Task): Promise<any> {
     return {
+      _id: task.id,
       completed: task.completed,
       title: task.title.value,
       description: task.description.value,

@@ -40,8 +40,8 @@ export class MongoUsersRepository implements UsersRepository {
   }
 
   async create(user: User) {
-    const rawSequelizeUser = await UserMapper.toPersistence(user)
-    const response = await this.model.create(rawSequelizeUser)
+    const rawUser = await UserMapper.toPersistence(user)
+    const response = await this.model.create(rawUser)
 
     return UserMapper.toDomain(response)
   }

@@ -3,4 +3,5 @@ export type TaskDto = {
   description: string
   date: string
   completed: boolean
+  id: string
 }
