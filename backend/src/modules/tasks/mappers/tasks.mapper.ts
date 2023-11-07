@@ -14,11 +14,12 @@ export class TaskMapper implements Mapper<Task> {
   }
 
   public static toDomain(raw: any): Task | null {
-    const taskTitleOrError = TaskTitle.create(raw.email)
+    const taskTitleOrError = TaskTitle.create(raw.title)
     const taskDescriptionOrError = TaskDescription.create(raw.description)
 
     const taskOrError = Task.create(
       {
+        userId: raw.userId,
         description: taskDescriptionOrError.getValue(),
         title: taskTitleOrError.getValue()
       },
@@ -36,7 +37,8 @@ export class TaskMapper implements Mapper<Task> {
   public static async toPersistence(task: Task): Promise<any> {
     return {
       title: task.title.value,
-      description: task.description.value
+      description: task.description.value,
+      userId: task.userId
     }
   }
 }

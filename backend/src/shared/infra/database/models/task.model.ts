@@ -16,7 +16,7 @@ const taskSchema = new mongoose.Schema<Task>(
     },
     userId: {
       type: String,
-      ref: 'User'
+      required: true
     }
   },
   {
