@@ -1,24 +1,35 @@
 // Dependencies
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // Components
 import { AppShell } from '@/shared/components'
-import { SelectedDateContext } from './shared/context'
-import { useState } from 'react'
-import { Home } from './modules'
+import { Home } from './modules/home'
+import { AuthPage } from './modules/auth'
 
 const queryClient = new QueryClient()
 
-export function App() {
-  const currentDateContext = useState(new Date())
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <div>Hello world!</div>
+  },
+  {
+    path: '/auth',
+    element: <AuthPage />
+  },
+  {
+    path: '/:date',
+    element: <Home />
+  }
+])
 
+export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <SelectedDateContext.Provider value={currentDateContext}>
-        <AppShell>
-          <Home />
-        </AppShell>
-      </SelectedDateContext.Provider>
+      <AppShell>
+        <RouterProvider router={router} />
+      </AppShell>
     </QueryClientProvider>
   )
 }

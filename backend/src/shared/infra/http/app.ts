@@ -27,7 +27,7 @@ const authSessionMiddleware = session({
 })
 const corsMiddleware = cors({
   credentials: true,
-  origin: [config.clientUrl]
+  origin: config.clientUrl
 })
 
 app.use(morgan('combined'))

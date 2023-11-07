@@ -1,36 +1,45 @@
 // Dependencies
 import { styled } from '@styled-system/jsx'
+import { useSearchParams } from 'react-router-dom'
 
 // Components
 import { Calendar } from '@/shared/components'
-import { Quote } from './components'
+import { Tasks } from './components'
 
 // Hooks
-import { useSelectedDate } from '@/shared/hooks'
+import { Suspense } from 'react'
 
 export function Home() {
-  const [selectedDate, setSelectedDate] = useSelectedDate()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const date = searchParams.get('date') ?? new Date()
 
   return (
-    <styled.div display={'grid'} gridTemplateRows={'auto auto 1fr'} h={'100%'}>
+    <styled.div
+      display={'grid'}
+      gridTemplateRows={'auto 1fr'}
+      h={'100%'}
+      gap={40}
+    >
       <Calendar
         // tileContent={() => <p>Calendar</p>}
-        value={selectedDate}
-        onChange={value => setSelectedDate(value as Date)}
+        value={new Date(date)}
+        onChange={value =>
+          setSearchParams(
+            new URLSearchParams({
+              date: new Date(value).toLocaleString('default', {
+                day: '2-digit',
+                month: 'numeric',
+                year: 'numeric'
+              })
+            })
+          )
+        }
       />
-      <div>
-        <styled.input
-          css={{
-            my: 40
-          }}
-          placeholder='What needs to be done?'
-          type='text'
-          name=''
-          id=''
-        />
-      </div>
 
-      <Quote />
+      <Suspense>
+        <Tasks />
+      </Suspense>
+      {/* <Quote /> */}
     </styled.div>
   )
 }

@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query'
+import { Fetcher } from '../libs'
 
 type Quote = {
   author: string
@@ -7,9 +8,13 @@ type Quote = {
 
 export const useQuote = () => {
   return useQuery('quote', async () => {
-    const res = await fetch('https://api.quotable.io/random')
-    const { author, content } = await res.json()
+    const { author, content } = await Fetcher.get<Quote>(
+      'https://api.quotable.io/random',
+      {
+        cache: 'force-cache'
+      }
+    )
 
-    return { author, content } as Quote
+    return { author, content }
   })
 }

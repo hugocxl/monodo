@@ -10,6 +10,6 @@ router.get('/', (req, res) => {
 })
 
 router.use('/users', usersRouter)
-router.use('/tasks', authMiddleware, tasksRouter)
+router.use('/tasks', tasksRouter)
 
 export { router }

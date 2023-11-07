@@ -73,6 +73,10 @@ const globalCss = defineGlobalStyles({
     fontSize: '14px',
     lineHeight: 'relaxed'
   },
+  hr: {
+    borderColor: 'border.secondary',
+    borderStyle: 'solid'
+  },
   input: {
     bg: 'none',
     borderBottom: 'primary',
