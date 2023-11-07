@@ -5,4 +5,5 @@ export type TasksRepository = {
   getTasksByTitle(title: string): Promise<Task[]>
   create(task: Task): Promise<Task | null>
   update(task: Task): Promise<Task | null>
+  delete(task: Task): Promise<Task | null>
 }

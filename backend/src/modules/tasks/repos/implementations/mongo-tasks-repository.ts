@@ -14,7 +14,7 @@ export class MongoTasksRepository implements TasksRepository {
   }
 
   async getTaskById(id: string) {
-    const task = await this.model.findOne({ id })
+    const task = await this.model.findOne({ _id: id })
 
     if (task) return TaskMapper.toDomain(task)
 
@@ -44,9 +44,16 @@ export class MongoTasksRepository implements TasksRepository {
 
     return TaskMapper.toDomain(dbResponse) as Task
   }
+
   async update(task: Task) {
     const rawTask = await TaskMapper.toPersistence(task)
     const dbResponse = await this.model.findByIdAndUpdate(task.id, rawTask)
+
+    return TaskMapper.toDomain(dbResponse) as Task
+  }
+
+  async delete(task: Task) {
+    const dbResponse = await this.model.findByIdAndDelete(task.id)
 
     return TaskMapper.toDomain(dbResponse) as Task
   }
