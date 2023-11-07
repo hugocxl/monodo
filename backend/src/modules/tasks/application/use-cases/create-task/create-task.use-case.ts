@@ -1,12 +1,13 @@
 // Dependencies
 import { Result, AppError, left, right } from '@/shared/core'
+import { TaskMapper } from '@/modules/tasks/mappers'
+import { UserDoesntExistError } from './create-task.error'
 import {
   Task,
   TaskDate,
   TaskDescription,
   TaskTitle
 } from '@/modules/tasks/domain'
-import { UserDoesntExistError } from './create-task.error'
 
 // Types
 import type { CreateTaskDto, CreateTaskResponseDto } from './create-task.dto'
@@ -14,7 +15,6 @@ import type { CreateTaskResponse } from './create-task.response'
 import type { UseCase } from '@/shared/core'
 import type { TasksRepository } from '@/modules/tasks/repos'
 import type { UsersRepository } from '@/modules/users/repos'
-import { TaskMapper } from '@/modules/tasks/mappers'
 
 export class CreateTaskUseCase
   implements UseCase<CreateTaskDto, Promise<CreateTaskResponse>>

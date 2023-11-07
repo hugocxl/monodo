@@ -38,6 +38,18 @@ export class MongoTasksRepository implements TasksRepository {
       .map(TaskMapper.toDomain) as Task[]
   }
 
+  async getTasksByDate(date: string) {
+    const tasks = await this.model
+      .find({
+        date
+      })
+      .exec()
+
+    if (!tasks) return []
+
+    return tasks.map(TaskMapper.toDomain) as Task[]
+  }
+
   async create(task: Task) {
     const rawTask = await TaskMapper.toPersistence(task)
     const dbResponse = await this.model.create(rawTask)
