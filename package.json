@@ -25,7 +25,7 @@
     "types": "tsc",
     "types:check": "pnpm types --noEmit",
     "prepare": "husky install",
-    "heroku-postbuild": "cd backend && npm run build"
+    "heroku-postbuild": "cd backend && npm run start"
   },
   "devDependencies": {
     "@types/node": "^20",
