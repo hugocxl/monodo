@@ -25,9 +25,7 @@
     "types": "tsc",
     "types:check": "pnpm types --noEmit",
     "prepare": "husky install",
-    "release": "changeset publish",
-    "release-dev": "changeset version --snapshot dev && changeset publish --tag dev",
-    "postversion": "git push && git push --tags"
+    "heroku-postbuild": "cd backend && npm run build"
   },
   "devDependencies": {
     "@types/node": "^20",
