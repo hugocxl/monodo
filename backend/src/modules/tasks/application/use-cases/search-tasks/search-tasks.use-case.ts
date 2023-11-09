@@ -49,7 +49,7 @@ export class SearchTasksUseCase
 
       const tasks = await this.tasksRepository.getTasksByTitle(title.value)
 
-      const tasksDto = tasks.map(TaskMapper.toDto)
+      const tasksDto = tasks.map(task => TaskMapper.toDto(task))
 
       return right(Result.ok<SearchTasksResponseDto>(tasksDto))
     } catch (err) {

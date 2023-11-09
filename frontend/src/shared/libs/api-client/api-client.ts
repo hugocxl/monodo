@@ -1,4 +1,7 @@
+// Dependencies
 import { Fetcher } from '../fetcher'
+
+// Types
 import type {
   CreateTaskDto,
   CreateTaskResponseDto,
@@ -20,14 +23,17 @@ const tasksEndpoint = `${import.meta.env.VITE_API_URL}/tasks`
 
 export const apiClient = {
   users: {
+    me: async () =>
+      Fetcher.get<{ email: string; id: string }>(`${usersEndpoint}/me`),
     signIn: (signInDto: SignInDto) =>
       Fetcher.post<SignInResponseDto, SignInDto>(`${usersEndpoint}/sign-in`, {
         body: signInDto
       }),
     signUp: (signUpDto: SignUpDto) =>
-      Fetcher.post<SignInResponseDto, SignUpDto>(`${usersEndpoint}/sign-in`, {
+      Fetcher.post<SignInResponseDto, SignUpDto>(`${usersEndpoint}/sign-up`, {
         body: signUpDto
-      })
+      }),
+    signOut: () => Fetcher.post(`${usersEndpoint}/sign-out`)
   },
   tasks: {
     create: (createTaskDto: CreateTaskDto) =>

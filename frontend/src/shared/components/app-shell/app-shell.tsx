@@ -11,9 +11,9 @@ export function AppShell({ children }: AppShellProps) {
       css={{
         position: 'relative',
         height: '100dvh',
+        minHeight: '100dvh',
         maxWidth: '480px',
-        margin: '0 auto',
-        px: 32
+        margin: '0 auto'
       }}
     >
       <Suspense>{children}</Suspense>

@@ -1,19 +1,15 @@
 // Dependencies
-import { useQuery as useReactQuery } from 'react-query'
+import { useQuery as useReactQuery } from '@tanstack/react-query'
 
 // Types
-import type { UseQueryProps } from './use-query.types'
+import type { UseQueryOptions, UseQueryResult } from './use-query.types'
 
-// Constants
-import { USE_QUERY_CONSTANTS } from './use-query.constants'
-
-export const useQuery = <FnReturn, Error, Data>({
+export const useQuery = <Data, Error>({
   queryFn,
   queryKey,
-  options
-}: UseQueryProps<FnReturn, Error, Data>) => {
-  return useReactQuery<FnReturn, Error, Data>({
-    ...USE_QUERY_CONSTANTS.defaults,
+  ...options
+}: UseQueryOptions<Data, Error>): UseQueryResult<Data, Error> => {
+  return useReactQuery({
     ...options,
     queryKey,
     queryFn

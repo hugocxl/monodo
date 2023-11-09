@@ -1,17 +1,18 @@
 // Dependencies
-import { useMutation, useQueryClient } from 'react-query'
-
-// Constants
-import { USE_COMMAND_CONSTANTS } from './use-command.constants'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 // Types
-import type { UseCommandProps } from './use-command.types'
+import type { UseCommandProps, UseCommandResult } from './use-command.types'
 
 export const useCommand = <Data, Error, Variables>({
   commandFn,
   commandKey,
-  options
-}: UseCommandProps<Data, Error, Variables>) => {
+  ...options
+}: UseCommandProps<Data, Error, Variables>): UseCommandResult<
+  Data,
+  Error,
+  Variables
+> => {
   const queryClient = useQueryClient()
 
   function onSuccess(data: Data, variables: Variables, context: unknown) {
@@ -31,7 +32,6 @@ export const useCommand = <Data, Error, Variables>({
     mutateAsync: commandAsync,
     ...props
   } = useMutation<Data, Error, Variables>({
-    ...USE_COMMAND_CONSTANTS.defaults,
     ...options,
     onSuccess,
     mutationKey: commandKey,

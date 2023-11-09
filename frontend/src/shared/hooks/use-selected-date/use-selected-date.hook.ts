@@ -1,17 +1,22 @@
 import { useSearchParams } from 'react-router-dom'
 
-export const useSelectedDate = (): [Date, (date: Date) => void] => {
+export const useSelectedDate = (): [string, (date: Date | string) => void] => {
   const [searchParams, setSearchParams] = useSearchParams()
   const paramsDate = searchParams.get('date')
-  const date = paramsDate ? new Date(paramsDate) : new Date()
+  const date = paramsDate ?? getFormattedDate(new Date())
 
-  function onChangeDate(date: Date) {
+  function getFormattedDate(date: Date) {
+    return date.toLocaleDateString('default', {
+      day: '2-digit',
+      month: 'numeric',
+      year: 'numeric'
+    })
+  }
+
+  function onChangeDate(date: Date | string) {
+    const newDate = getFormattedDate(new Date(date))
     const searchParams = new URLSearchParams({
-      date: new Date(date).toLocaleString('default', {
-        day: '2-digit',
-        month: 'numeric',
-        year: 'numeric'
-      })
+      date: newDate
     })
 
     setSearchParams(searchParams)

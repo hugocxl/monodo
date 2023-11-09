@@ -3,12 +3,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40px;
   border-radius: 50%;
   background-color: var(--colors-bg-secondary);
   color: var(--colors-text-default);
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .react-calendar__tile:hover {
@@ -21,6 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bolder;
 }
 
 .react-calendar__tile--active {
@@ -51,9 +50,7 @@
 .react-calendar__navigation {
   display: flex;
   justify-content: center;
-  margin-top: 16px;
-  position: absolute;
-  bottom: 8px;
+  margin-bottom: 1rem;
   width: 100%;
 }
 

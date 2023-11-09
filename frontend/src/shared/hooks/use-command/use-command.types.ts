@@ -1,4 +1,7 @@
-import type { UseMutationOptions } from 'react-query'
+import type {
+  UseMutationOptions,
+  UseMutationResult
+} from '@tanstack/react-query'
 
 export type UseCommandOptions<Data, Error, Variables> = UseMutationOptions<
   Data,
@@ -13,5 +16,12 @@ export type UseCommandProps<
 > = {
   commandFn: UseMutationOptions<Data, Error, Variables>['mutationFn']
   commandKey: string[]
-  options?: UseCommandOptions<Data, Error, Variables>
+} & UseCommandOptions<Data, Error, Variables>
+
+export type UseCommandResult<Data, Error, Variables> = Omit<
+  UseMutationResult<Data, Error, Variables>,
+  'mutate' | 'mutateAsync'
+> & {
+  command: UseMutationResult<Data, Error, Variables>['mutate']
+  commandAsync: UseMutationResult<Data, Error, Variables>['mutateAsync']
 }

@@ -1,45 +1,77 @@
-// Dependencies
+// Hooks
 import { useSignInCommand } from '@/shared/hooks'
-import { styled } from '@styled-system/jsx'
-import { useState, type ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+
+// Dependencies
+import { Button, Text, Input, Form } from '@/shared/components'
+
+// Types
+import type { ChangeEvent, FormEvent } from 'react'
 
 export function SignInForm() {
   const navigate = useNavigate()
-  const { command, isLoading, error } = useSignInCommand({
-    onSuccess: () => navigate(`/home?date=${new Date()}`)
-  })
   const [user, setUser] = useState({
-    email: '',
-    password: ''
+    email: 'corta.hugo@gmail.com',
+    password: '123456'
+  })
+  const { command, isPending, error } = useSignInCommand({
+    onSuccess: () => {
+      navigate(`/`)
+    }
   })
 
   const onChangeField = (field: string) => (e: ChangeEvent<HTMLInputElement>) =>
     setUser({ ...user, [field]: e.target.value })
 
+  function onSubmit(ev: FormEvent<HTMLFormElement>) {
+    ev.preventDefault()
+
+    command(user)
+  }
+
   return (
-    <styled.div
+    <Form
+      onSubmit={onSubmit}
       css={{
         display: 'flex',
-        flexDir: 'column',
+        flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        gap: 8
+        gap: 12
       }}
     >
-      <input type='text' value={user.email} onChange={onChangeField('email')} />
-      <input
-        type='password'
+      <Input
+        required
+        placeholder={'Email'}
+        type={'text'}
+        value={user.email}
+        onChange={onChangeField('email')}
+      />
+      <Input
+        required
+        placeholder={'Password'}
+        type={'password'}
         value={user.password}
         onChange={onChangeField('password')}
       />
-      <button onClick={() => command(user)}>
-        {isLoading ? 'Loading...' : 'Sign In'}
-      </button>
+      <Button
+        disabled={isPending}
+        css={{ width: '100%', mt: 12 }}
+        type={'submit'}
+      >
+        {isPending ? 'Loading...' : 'Sign In'}
+      </Button>
 
       {Boolean(error) && (
-        <styled.p mt={16} textAlign={'center'}>{`${error?.message}`}</styled.p>
+        <Text
+          css={{
+            mt: 16,
+            textAlign: 'center',
+            color: 'red'
+          }}
+        >{`${error?.message}`}</Text>
       )}
-    </styled.div>
+    </Form>
   )
 }

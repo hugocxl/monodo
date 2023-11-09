@@ -28,7 +28,7 @@ export class UserMapper implements Mapper<User> {
     )
 
     if (userOrError.isFailure) {
-      console.log(userOrError.getError())
+      console.error(userOrError.getError())
       return null
     }
 

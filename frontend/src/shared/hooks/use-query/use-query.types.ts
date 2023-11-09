@@ -1,17 +1,11 @@
-import type { QueryOptions } from 'react-query'
+import type { QueryOptions } from '@tanstack/react-query'
 
-export type UseQueryOptions<
-  FnReturn = unknown,
-  Error = unknown,
-  Data = unknown
-> = QueryOptions<FnReturn, Error, Data>
-
-export interface UseQueryProps<
-  FnReturn = unknown,
-  Error = unknown,
-  Data = unknown
-> {
-  queryKey: UseQueryOptions<FnReturn, Error, Data>['queryKey']
-  queryFn: UseQueryOptions<FnReturn, Error, Data>['queryFn']
-  options?: UseQueryOptions<FnReturn, Error, Data>
+export type UseQueryOptions<Data = unknown, Error = unknown> = QueryOptions<
+  Data,
+  Error,
+  Data
+> & {
+  queryKey: string[]
 }
+
+export { type UseQueryResult } from '@tanstack/react-query'

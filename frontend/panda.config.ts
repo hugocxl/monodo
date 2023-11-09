@@ -20,9 +20,6 @@ const semanticTokens = defineSemanticTokens({
   borders: {
     primary: {
       value: '1px solid {colors.border.primary}'
-    },
-    secondary: {
-      value: '1px solid {colors.border.secondary}'
     }
   },
   colors: {
@@ -38,6 +35,15 @@ const semanticTokens = defineSemanticTokens({
           _osLight: hsl(97),
           _osDark: hsl(14)
         }
+      },
+      modal: {
+        value: {
+          _osLight: hsl(100),
+          _osDark: hsl(8)
+        }
+      },
+      button: {
+        value: { _osLight: hsl(20), _osDark: hsl(100) }
       }
     },
     border: {
@@ -45,12 +51,6 @@ const semanticTokens = defineSemanticTokens({
         value: {
           _osLight: hsl(92),
           _osDark: hsl(15)
-        }
-      },
-      secondary: {
-        value: {
-          _osLight: 'hsl(0 0% 90%)',
-          _osDark: 'hsl(0 0% 10%)'
         }
       }
     },
@@ -69,32 +69,28 @@ const globalCss = defineGlobalStyles({
   body: {
     backgroundColor: 'bg.primary',
     textRendering: 'optimizeLegibility',
-    color: 'text.default',
-    fontSize: '14px',
-    lineHeight: 'relaxed'
+    color: 'text.default'
   },
   hr: {
     borderColor: 'border.primary',
     borderStyle: 'solid'
   },
-  button: {
-    borderRadius: 8,
-    padding: '12px 24px',
-    bg: 'text.default',
-    color: 'bg.primary',
-    fontWeight: 'bold',
-    cursor: 'poi'
+  '::-webkit-scrollbar': {
+    width: '4px',
+    backgroundColor: 'transparent'
   },
-  input: {
-    bg: 'none',
-    border: 'primary',
-    width: '100%',
-    fontSize: 'larger',
-    padding: '9px 16px',
-    borderRadius: 8,
-    _focus: {
-      outline: 'none'
-    }
+  '::-webkit-scrollbar-track': {
+    borderRadius: 10
+  },
+  '::-webkit-scrollbar:vertical': {
+    width: 4
+  },
+  '::-webkit-scrollbar:horizontal': {
+    height: 4
+  },
+  '::-webkit-scrollbar-thumb': {
+    borderRadius: 10,
+    backgroundColor: 'bg.secondary'
   }
 })
 

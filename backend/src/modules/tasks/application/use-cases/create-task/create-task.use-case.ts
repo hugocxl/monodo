@@ -2,12 +2,7 @@
 import { Result, AppError, left, right } from '@/shared/core'
 import { TaskMapper } from '@/modules/tasks/mappers'
 import { UserDoesntExistError } from './create-task.error'
-import {
-  Task,
-  TaskDate,
-  TaskDescription,
-  TaskTitle
-} from '@/modules/tasks/domain'
+import { Task, TaskDate, TaskTitle } from '@/modules/tasks/domain'
 
 // Types
 import type { CreateTaskDto, CreateTaskResponseDto } from './create-task.dto'
@@ -34,14 +29,7 @@ export class CreateTaskUseCase
     try {
       const titleOrError = TaskTitle.create(createTaskDto.title)
       const dateOrError = TaskDate.create(createTaskDto.date)
-      const descriptionOrError = TaskDescription.create(
-        createTaskDto.description
-      )
-      const dtoResult = Result.combine([
-        titleOrError,
-        descriptionOrError,
-        dateOrError
-      ])
+      const dtoResult = Result.combine([titleOrError, dateOrError])
 
       if (dtoResult.isFailure) {
         return left(
@@ -50,7 +38,6 @@ export class CreateTaskUseCase
       }
 
       const title = titleOrError.getValue()
-      const description = descriptionOrError.getValue()
       const date = dateOrError.getValue()
 
       const user = await this.usersRepository.getUserById(createTaskDto.userId)
@@ -67,8 +54,7 @@ export class CreateTaskUseCase
         completed: false,
         userId: createTaskDto.userId,
         title,
-        date,
-        description
+        date
       })
 
       if (taskOrError.isFailure) {

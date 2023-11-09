@@ -1,23 +1,28 @@
-// Dependencies
-import { styled } from '@styled-system/jsx'
-
 // Components
-import { Suspense } from '@/shared/components'
-import { Calendar, Tasks, Header } from './components'
+import { Navigate } from 'react-router-dom'
+import { Tasks, Header, Navbar } from './components'
+import { Grid } from '@/shared/components'
+
+// Hooks
+import { useUserQuery } from '@/shared/hooks'
 
 export function HomePage() {
+  const userQuery = useUserQuery()
+
+  if (userQuery.isError && !userQuery.isFetching) {
+    return <Navigate to={'/auth'} />
+  }
+
   return (
-    <styled.div
-      display={'grid'}
-      gridTemplateRows={'auto auto 1fr'}
+    <Grid
+      position={'relative'}
+      gridTemplateRows={'auto  1fr auto'}
       h={'100%'}
-      gap={40}
+      pb={'54px'}
     >
       <Header />
-      <Calendar />
-      <Suspense>
-        <Tasks />
-      </Suspense>
-    </styled.div>
+      <Tasks />
+      <Navbar />
+    </Grid>
   )
 }

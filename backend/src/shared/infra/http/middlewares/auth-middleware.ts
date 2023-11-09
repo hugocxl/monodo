@@ -6,9 +6,9 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.session.logged) {
+  if (!req.session.user) {
     return res.status(401).json({ code: 'unauthorized' })
+  } else {
+    next()
   }
-
-  next()
 }

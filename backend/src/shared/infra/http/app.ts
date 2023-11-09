@@ -8,7 +8,7 @@ import helmet from 'helmet'
 import mongoStore from 'connect-mongo'
 import morgan from 'morgan'
 import session from 'express-session'
-import { router } from '.'
+import { router } from './api'
 
 // Types
 import type { Application } from 'express'
@@ -17,17 +17,15 @@ const app: Application = express()
 const authSessionMiddleware = session({
   store: mongoStore.create({
     mongoUrl: config.mongoose.url,
-    dbName: config.mongoose.dbName,
-    ttl: 24 * 60 * 60
+    dbName: config.mongoose.dbName
   }),
   secret: 'auth',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: config.env !== 'production', maxAge: 24 * 60 * 60 * 1000 }
+  saveUninitialized: true
 })
 const corsMiddleware = cors({
   credentials: true,
-  origin: config.clientUrl
+  origin: true
 })
 
 app.use(morgan('combined'))

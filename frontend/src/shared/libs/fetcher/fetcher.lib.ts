@@ -27,8 +27,8 @@ export abstract class Fetcher {
     { onError, onSuccess, ...options }: RequestArgs
   ): Promise<R> => {
     const requestOptions: RequestArgs = {
+      ...FETCH_CONSTANTS.corsFetchOptions,
       ...options,
-      // ...FETCH_CONSTANTS.corsFetchOptions,
       headers: {
         ...FETCH_CONSTANTS.cacheHeaders,
         ...options?.headers
@@ -50,7 +50,7 @@ export abstract class Fetcher {
         onError(err)
       }
 
-      console.error(err)
+      console.error(url, err)
       throw err
     }
   }

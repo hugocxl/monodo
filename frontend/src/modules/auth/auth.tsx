@@ -1,8 +1,5 @@
-// Dependencies
-import { styled } from '@styled-system/jsx'
-
 // Components
-import { MonodoIcon } from '@/shared/components'
+import { MonodoIcon, Box, Stack, Text } from '@/shared/components'
 import { SignInForm, SignUpForm } from './components'
 
 // Hooks
@@ -17,34 +14,35 @@ export function AuthPage() {
         {view === 'sign-in'
           ? 'Not a user? Sign up '
           : 'Already a user? Sign in '}
-        <styled.span
-          cursor={'pointer'}
-          textDecoration={'underline'}
+        <Text
           onClick={() =>
             setView(prev => (prev === 'sign-up' ? 'sign-in' : 'sign-up'))
           }
+          css={{
+            cursor: 'pointer',
+            textDecoration: 'underline'
+          }}
         >
           here
-        </styled.span>
+        </Text>
       </p>
     )
   }
 
   return (
-    <styled.div
+    <Stack
       css={{
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDir: 'column',
         width: '100%',
         height: '100%',
-        gap: 40
+        gap: 40,
+        px: 40
       }}
     >
-      <styled.div css={{ transform: 'translateY(-40px)' }}>
+      <Box css={{ transform: 'translateY(-20px)' }}>
         <MonodoIcon />
-        <styled.span
+        <Text
           css={{
             mt: 16,
             textStyle: '3xl',
@@ -55,10 +53,10 @@ export function AuthPage() {
           }}
         >
           {'monodo'}
-        </styled.span>
-      </styled.div>
+        </Text>
+      </Box>
       {view === 'sign-in' ? <SignInForm /> : <SignUpForm />}
       <ViewChanger />
-    </styled.div>
+    </Stack>
   )
 }

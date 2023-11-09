@@ -1,11 +1,6 @@
 // Dependencies
 import { Result, AppError, left, right } from '@/shared/core'
-import {
-  Task,
-  TaskDate,
-  TaskDescription,
-  TaskTitle
-} from '@/modules/tasks/domain'
+import { Task, TaskDate, TaskTitle } from '@/modules/tasks/domain'
 import { UserDoesntExistError } from './update-task.error'
 
 // Types
@@ -34,14 +29,7 @@ export class UpdateTaskUseCase
     try {
       const titleOrError = TaskTitle.create(updateTaskDto.title)
       const dateOrError = TaskDate.create(updateTaskDto.date)
-      const descriptionOrError = TaskDescription.create(
-        updateTaskDto.description
-      )
-      const dtoResult = Result.combine([
-        titleOrError,
-        descriptionOrError,
-        dateOrError
-      ])
+      const dtoResult = Result.combine([titleOrError, dateOrError])
 
       if (dtoResult.isFailure) {
         return left(
@@ -50,7 +38,6 @@ export class UpdateTaskUseCase
       }
 
       const title = titleOrError.getValue()
-      const description = descriptionOrError.getValue()
       const date = dateOrError.getValue()
 
       const user = await this.usersRepository.getUserById(updateTaskDto.userId)
@@ -68,8 +55,7 @@ export class UpdateTaskUseCase
           completed: updateTaskDto.completed,
           userId: updateTaskDto.userId,
           title,
-          date,
-          description
+          date
         },
         updateTaskDto.id
       )

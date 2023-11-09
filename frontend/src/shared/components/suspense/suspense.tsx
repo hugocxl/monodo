@@ -1,6 +1,12 @@
+// Dependencies
 import { styled } from '@styled-system/jsx'
-import { Suspense as ReactSuspense, type ReactNode } from 'react'
+
+// Components
+import { Suspense as ReactSuspense } from 'react'
 import { MonodoIcon } from '..'
+
+// Types
+import { type ReactNode } from 'react'
 
 export function Suspense({
   children,
@@ -18,7 +24,9 @@ export function Suspense({
 
 function SuspenseFallback() {
   return (
-    <styled.div css={{ height: '100%', placeContent: 'center' }}>
+    <styled.div
+      css={{ height: '100%', display: 'grid', placeContent: 'center' }}
+    >
       <MonodoIcon />
     </styled.div>
   )

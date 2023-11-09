@@ -1,8 +1,8 @@
-// Dependencies
-import { styled } from '@styled-system/jsx'
-
 // Hooks
 import { useQuoteQuery } from '@/shared/hooks'
+
+// Components
+import { Stack, Text } from '@/shared/components'
 
 export function Quote() {
   const { isLoading, data } = useQuoteQuery()
@@ -12,7 +12,7 @@ export function Quote() {
 
     return (
       <>
-        <styled.p
+        <Text
           css={{
             textAlign: 'center',
             fontSize: 'small',
@@ -20,23 +20,21 @@ export function Quote() {
           }}
         >
           {data?.content}
-        </styled.p>
-        <styled.p css={{ mt: 8, fontSize: 'x-small' }}>{data?.author}</styled.p>
+        </Text>
+        <Text css={{ mt: 8, fontSize: 'x-small' }}>{data?.author}</Text>
       </>
     )
   }
 
   return (
-    <styled.div
+    <Stack
       css={{
         h: '100%',
-        display: 'flex',
         justifyContent: 'center',
-        flexDir: 'column',
         alignItems: 'center'
       }}
     >
       {renderQuote()}
-    </styled.div>
+    </Stack>
   )
 }

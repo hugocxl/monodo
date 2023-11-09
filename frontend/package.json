@@ -9,19 +9,22 @@
   "types": "dist/index.d.ts",
   "author": "Hugo Corta <corta.hugo@gmail.com>",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "start": "vite preview",
     "prepare": "panda codegen"
   },
   "dependencies": {
+    "@tanstack/query-sync-storage-persister": "^5.8.1",
+    "@tanstack/react-query": "^5",
+    "@tanstack/react-query-persist-client": "^5.8.1",
     "date-fns": "^2",
     "lucide-react": "^0",
+    "lz-string": "^1.5.0",
     "react": "^18",
     "react-calendar": "^4.6.1",
     "react-dom": "^18",
-    "react-query": "^3.39.3",
-    "react-router-dom": "^6.18.0"
+    "react-router-dom": "^6"
   },
   "devDependencies": {
     "@pandacss/dev": "^0",

@@ -1,5 +1,3 @@
-'use client'
-
 // Dependencies
 import { createPortal } from 'react-dom'
 

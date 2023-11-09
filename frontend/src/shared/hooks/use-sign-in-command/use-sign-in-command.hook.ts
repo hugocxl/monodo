@@ -14,9 +14,9 @@ type UseSignInProps = UseCommandOptions<
   UseSignInArgs
 >
 
-export const useSignInCommand = (props?: UseSignInProps) => {
+export const useSignInCommand = (options?: UseSignInProps) => {
   return useCommand<UseSignInReturn, { message: string }, UseSignInArgs>({
-    ...props,
+    ...options,
     commandKey: ['users', 'signIn'],
     commandFn: (newTodo: UseSignInArgs) => apiClient.users.signIn(newTodo)
   })

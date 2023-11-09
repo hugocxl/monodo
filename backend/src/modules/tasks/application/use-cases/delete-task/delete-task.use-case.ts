@@ -1,11 +1,6 @@
 // Dependencies
 import { Result, AppError, left, right } from '@/shared/core'
-import {
-  Task,
-  TaskDate,
-  TaskDescription,
-  TaskTitle
-} from '@/modules/tasks/domain'
+import { Task } from '@/modules/tasks/domain'
 import { TaskDoesntExistError, UserDoesntExistError } from './delete-task.error'
 import { TaskMapper } from '@/modules/tasks/mappers'
 

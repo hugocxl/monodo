@@ -1,15 +1,4 @@
-export type UserDto = {
-  email: string
-  id: string
-}
-
-export type TaskDto = {
-  title: string
-  description: string
-  date: string
-  completed: boolean
-  id: string
-}
+import type { TaskDto, UserDto } from '@/shared/types'
 
 export type SignUpDto = {
   email: string
@@ -24,13 +13,6 @@ export type SignInDto = {
 export type SignUpResponseDto = UserDto
 
 export type SignInResponseDto = UserDto
-
-export type CreateTaskDto = {
-  title: string
-  description: string
-  userId: string
-  date: string
-}
 
 export type DeleteTaskDto = {
   userId: string
@@ -47,9 +29,14 @@ export type SearchTasksDto = {
   userId: string
 }
 
+export type CreateTaskDto = {
+  title: string
+  userId: string
+  date: string
+}
+
 export type UpdateTaskDto = {
   title: string
-  description: string
   completed: boolean
   userId: string
   date: string

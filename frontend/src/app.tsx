@@ -1,24 +1,34 @@
 // Dependencies
-import { QueryClient } from 'react-query'
+import { QueryClient } from '@tanstack/react-query'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { persistQueryClient } from '@tanstack/react-query-persist-client'
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
+import { compress, decompress } from 'lz-string'
 
 // Components
-import { QueryClientProvider } from 'react-query'
 import { AppShell } from '@/shared/components'
-import { HomePage } from './modules/home'
-import { AuthPage } from './modules/auth'
+import { HomePage } from '@/modules/home'
+import { AuthPage } from '@/modules/auth'
+import { QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { retry: false, suspense: true, cacheTime: 60 * 60 * 24 * 1000 },
-    mutations: { retry: false }
-  }
+  defaultOptions: { queries: { staleTime: Infinity } }
+})
+
+persistQueryClient({
+  queryClient: queryClient,
+  persister: createSyncStoragePersister({
+    storage: window.localStorage,
+    serialize: data => compress(JSON.stringify(data)),
+    deserialize: data => JSON.parse(decompress(data))
+  }),
+  maxAge: Infinity
 })
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Hello world!</div>
+    element: <HomePage />
   },
   {
     path: '/auth',

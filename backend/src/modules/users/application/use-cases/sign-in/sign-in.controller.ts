@@ -42,8 +42,11 @@ export class SignInController extends BaseController {
           }
         }
       } else {
-        req.session.logged = true
-        return this.ok<SignInResponseDto>(res, result.value.getValue())
+        const user = result.value.getValue()
+
+        req.session.user = user
+
+        return this.ok<SignInResponseDto>(res, user)
       }
     } catch (err) {
       return this.fail(res, err as Error)

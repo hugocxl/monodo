@@ -3,12 +3,11 @@ import { Guard, Result } from '@/shared/core'
 import { Entity } from '@/shared/domain'
 
 // Types
-import type { TaskCompleted, TaskDescription, TaskTitle } from '.'
+import type { TaskCompleted, TaskTitle } from '.'
 import type { TaskUserId } from './task-user-id'
 import type { TaskDate } from './task-date'
 
 interface TaskProps {
-  description: TaskDescription
   title: TaskTitle
   userId: TaskUserId
   date: TaskDate
@@ -36,10 +35,6 @@ export class Task extends Entity<TaskProps> {
     return this.props.date
   }
 
-  get description(): TaskDescription {
-    return this.props.description
-  }
-
   get title(): TaskTitle {
     return this.props.title
   }
@@ -48,8 +43,7 @@ export class Task extends Entity<TaskProps> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: props.userId, argumentName: 'userId' },
       { argument: props.title, argumentName: 'title' },
-      { argument: props.date, argumentName: 'date' },
-      { argument: props.description, argumentName: 'description' }
+      { argument: props.date, argumentName: 'date' }
     ])
 
     if (guardResult.isFailure) {
