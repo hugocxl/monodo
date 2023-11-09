@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "pnpm -r --parallel --filter=./{backend,frontend,shared}/** dev",
-    "start": "cd backend && pnpm start",
+    "start": "cd backend && npm run start",
     "build-fast": "pnpm -r --parallel --filter=./{backend,frontend,shared}/** build-fast",
     "build": "pnpm -r --filter=./{backend,frontend,shared}/** build",
     "test": "vitest run",
