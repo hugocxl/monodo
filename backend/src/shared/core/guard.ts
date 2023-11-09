@@ -1,6 +1,6 @@
 export type GuardResponse = string
 
-import { Result } from './result2'
+import { Result } from './result'
 
 export interface IGuardArgument {
   argument: any

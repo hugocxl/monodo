@@ -1,4 +1,4 @@
-import { Result } from './result2'
+import { Result } from './result'
 
 interface IError {
   message: string
