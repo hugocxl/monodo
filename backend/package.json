@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "author": "Hugo Corta <corta.hugo@gmail.com>",
   "scripts": {
-    "dev": "tsup --format=esm --silent --no-dts --watch & node --watch dist/index.mjs",
+    "dev": "tsup --silent --no-dts --watch & node --watch dist/index.js",
     "build": "tsup",
     "start": "node dist/index.mjs",
     "test": "vitest run",
