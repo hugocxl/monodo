@@ -70,7 +70,7 @@ export function SearchModal({
             setSearch(ev.target.value)
             onChangeThrottled({
               title: search,
-              userId: userQuery?.data.id
+              userId: userQuery.data?.id
             })
           }}
         />

@@ -53,9 +53,15 @@ export function TaskModal({ onClose, isOpen, task }: TaskModalProps) {
     e.preventDefault()
 
     if (isEdit) {
-      updateTaskCmd.command({ ...tempTask, userId: userQuery.data?.id })
+      updateTaskCmd.command({
+        ...tempTask,
+        userId: userQuery.data?.id as string
+      })
     } else {
-      createTaskCmd.command({ ...tempTask, userId: userQuery.data?.id })
+      createTaskCmd.command({
+        ...tempTask,
+        userId: userQuery.data?.id as string
+      })
     }
   }
 

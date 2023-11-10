@@ -47,5 +47,8 @@
     "tsup": "^7",
     "typescript": "^5",
     "vitest": "^0"
+  },
+  "engines": {
+    "node": "^18"
   }
 }

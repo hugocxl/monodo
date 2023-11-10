@@ -21,7 +21,7 @@ export function Tasks() {
   const userQuery = useUserQuery()
   const tasks = useTasksByDateQuery({
     date: date,
-    userId: userQuery.data?.id
+    userId: userQuery.data?.id as string
   })
 
   function renderContent() {
