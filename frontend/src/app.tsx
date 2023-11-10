@@ -1,9 +1,9 @@
 // Dependencies
 import { QueryClient } from '@tanstack/react-query'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import { persistQueryClient } from '@tanstack/react-query-persist-client'
-// import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
-// import { compress, decompress } from 'lz-string'
+import { persistQueryClient } from '@tanstack/react-query-persist-client'
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
+import { compress, decompress } from 'lz-string'
 
 // Components
 import { Navigate } from 'react-router-dom'
@@ -16,15 +16,15 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } }
 })
 
-// persistQueryClient({
-//   queryClient: queryClient,
-//   persister: createSyncStoragePersister({
-//     storage: window.localStorage,
-//     serialize: data => compress(JSON.stringify(data)),
-//     deserialize: data => JSON.parse(decompress(data))
-//   }),
-//   maxAge: Infinity
-// })
+persistQueryClient({
+  queryClient: queryClient,
+  persister: createSyncStoragePersister({
+    storage: window.localStorage,
+    serialize: data => compress(JSON.stringify(data)),
+    deserialize: data => JSON.parse(decompress(data))
+  }),
+  maxAge: Infinity
+})
 
 const router = createBrowserRouter([
   {
