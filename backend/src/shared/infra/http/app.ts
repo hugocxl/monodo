@@ -21,7 +21,16 @@ const authSessionMiddleware = session({
   }),
   secret: 'auth',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  ...(config.env === 'production' && {
+    proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
+    name: 'MonodoCookie', // This needs to be unique per-host.
+    cookie: {
+      secure: true, // required for cookies to work on HTTPS
+      httpOnly: true,
+      sameSite: 'none'
+    }
+  })
 })
 const corsMiddleware = cors({
   credentials: true,

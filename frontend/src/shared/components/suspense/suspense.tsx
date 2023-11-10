@@ -22,7 +22,7 @@ export function Suspense({
   )
 }
 
-function SuspenseFallback() {
+export function SuspenseFallback() {
   return (
     <styled.div
       css={{ height: '100%', display: 'grid', placeContent: 'center' }}

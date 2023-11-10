@@ -12,11 +12,12 @@ import {
   ArrowBigRightDash,
   ArrowBigLeftDash
 } from 'lucide-react'
+import { TaskModal } from '../task-modal'
 
 // Hooks
 import { useSelectedDate, useSignOutCommand } from '@/shared/hooks'
 import { useState } from 'react'
-import { TaskModal } from '../task-modal'
+import { useNavigate } from 'react-router-dom'
 
 const NAVBAR_HEIGHT = 54
 
@@ -24,6 +25,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedDate, setSelectedDate] = useSelectedDate()
   const logoutCmd = useSignOutCommand()
+  const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   function onClickNext() {
@@ -99,7 +101,14 @@ export function Navbar() {
             </Button>
           </Flex>
 
-          <Button variant='icon' onClick={logoutCmd.command} p={8}>
+          <Button
+            variant='icon'
+            onClick={() => {
+              logoutCmd.command('auth')
+              navigate('/auth')
+            }}
+            p={8}
+          >
             <LogOutIcon size={20} />
           </Button>
         </Flex>

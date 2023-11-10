@@ -13,7 +13,7 @@ import { AuthPage } from '@/modules/auth'
 import { QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { staleTime: Infinity, retry: false } }
+  defaultOptions: { queries: { retry: false } }
 })
 
 // persistQueryClient({
@@ -29,8 +29,7 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
-    ErrorBoundary: () => <Navigate to={'/auth'} />
+    element: <HomePage />
   },
   {
     path: '/auth',
@@ -38,8 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/:date',
-    element: <HomePage />,
-    ErrorBoundary: () => <Navigate to={'/auth'} />
+    element: <HomePage />
   }
 ])
 
