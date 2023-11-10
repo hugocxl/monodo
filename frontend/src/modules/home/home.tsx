@@ -15,6 +15,7 @@ export function HomePage() {
 
   return (
     <Grid
+      data-testid={'home-page'}
       position={'relative'}
       gridTemplateRows={'auto  1fr auto'}
       h={'100%'}

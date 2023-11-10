@@ -42,6 +42,7 @@ export function SignUpForm() {
       }}
     >
       <Input
+        id='input-email'
         placeholder={'Email'}
         required
         type={'text'}
@@ -49,6 +50,7 @@ export function SignUpForm() {
         onChange={onChangeField('email')}
       />
       <Input
+        id='input-password'
         required
         placeholder={'Password'}
         type={'password'}
@@ -56,6 +58,7 @@ export function SignUpForm() {
         onChange={onChangeField('password')}
       />
       <Button
+        id='submit'
         disabled={isPending}
         css={{ width: '100%', mt: 12 }}
         type='submit'

@@ -62,6 +62,7 @@ export function TaskModal({ onClose, isOpen, task }: TaskModalProps) {
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <Form
+        data-testid={'task-modal'}
         css={{ gap: 12, display: 'flex', flexDir: 'column' }}
         onSubmit={onSubmit}
       >
@@ -75,13 +76,18 @@ export function TaskModal({ onClose, isOpen, task }: TaskModalProps) {
           {title}
         </Text>
         <Input
+          data-testid={'task-modal-input'}
           type='text'
           placeholder='Title'
           value={tempTask.title}
           onChange={onChangeField('title')}
         />
 
-        <Button alignSelf={'flex-end'} type='submit'>
+        <Button
+          alignSelf={'flex-end'}
+          type='submit'
+          data-testid={'task-modal-submit-button'}
+        >
           {isEdit ? 'Edit' : 'Create'} task
         </Button>
       </Form>

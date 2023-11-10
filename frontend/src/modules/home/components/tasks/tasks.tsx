@@ -33,6 +33,7 @@ export function Tasks() {
 
     return (
       <Stack
+        data-testid={'tasks-list'}
         css={{
           h: '100%',
           w: '100%',

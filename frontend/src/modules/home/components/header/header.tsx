@@ -23,6 +23,7 @@ export function Header() {
 
   return (
     <styled.header
+      data-testid={'header'}
       css={{
         borderBottom: 'primary',
         w: '100%',
@@ -48,6 +49,7 @@ export function Header() {
       </Flex>
 
       <Button
+        data-testid={'open-search-button'}
         variant='icon'
         onClick={() => setIsSearchModalOpen(prev => !prev)}
       >

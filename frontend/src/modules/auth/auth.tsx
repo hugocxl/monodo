@@ -15,6 +15,7 @@ export function AuthPage() {
           ? 'Not a user? Sign up '
           : 'Already a user? Sign in '}
         <Text
+          id='change-view-button'
           onClick={() =>
             setView(prev => (prev === 'sign-up' ? 'sign-in' : 'sign-up'))
           }

@@ -42,6 +42,7 @@ export function SignInForm() {
       }}
     >
       <Input
+        id='input-email'
         required
         placeholder={'Email'}
         type={'text'}
@@ -49,6 +50,7 @@ export function SignInForm() {
         onChange={onChangeField('email')}
       />
       <Input
+        id='input-password'
         required
         placeholder={'Password'}
         type={'password'}
@@ -56,6 +58,7 @@ export function SignInForm() {
         onChange={onChangeField('password')}
       />
       <Button
+        id='submit'
         disabled={isPending}
         css={{ width: '100%', mt: 12 }}
         type={'submit'}

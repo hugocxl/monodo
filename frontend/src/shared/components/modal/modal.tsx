@@ -37,6 +37,7 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
             <Box
               onClick={ev => ev.stopPropagation()}
               css={{
+                border: 'primary',
                 overflow: 'auto',
                 bg: 'bg.modal',
                 position: 'absolute',

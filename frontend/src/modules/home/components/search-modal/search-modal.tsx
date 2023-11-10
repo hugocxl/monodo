@@ -60,9 +60,10 @@ export function SearchModal({
 
   return (
     <Modal onClose={onClose} {...props}>
-      <Stack>
+      <Stack data-testid={'search-modal'}>
         <SearchResults tasks={searchCmd?.data || []} onClose={onClose} />
         <Input
+          data-testid={'search-input'}
           placeholder='Search'
           value={search}
           onChange={ev => {
@@ -85,7 +86,7 @@ const SearchResults = memo<{ tasks: TaskDto[]; onClose: () => void }>(
     return (
       <Stack>
         <Text>Found {tasks.length} tasks</Text>
-        <Stack gap={12} py={20}>
+        <Stack gap={12} py={20} data-testid={'search-list'}>
           {tasks.map(task => {
             return (
               <Stack

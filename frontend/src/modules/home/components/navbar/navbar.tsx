@@ -64,6 +64,7 @@ export function Navbar() {
           }}
         >
           <Button
+            data-testid={'open-new-task-modal-button'}
             onClick={() => setIsModalOpen(prev => !prev)}
             variant='icon'
             css={{ bg: 'red', p: 4 }}

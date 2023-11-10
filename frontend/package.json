@@ -9,10 +9,11 @@
   "types": "dist/index.d.ts",
   "author": "Hugo Corta <corta.hugo@gmail.com>",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "build": "tsc && vite build",
     "start": "vite preview",
-    "prepare": "panda codegen"
+    "prepare": "panda codegen",
+    "test": "npx playwright test --ui"
   },
   "dependencies": {
     "@tanstack/query-sync-storage-persister": "^5.8.1",
@@ -27,7 +28,10 @@
     "react-router-dom": "^6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.2.0",
     "@pandacss/dev": "^0",
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@vitejs/plugin-react": "^4",

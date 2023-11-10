@@ -29,6 +29,7 @@ export function Task({ completed, title, ...rest }: TaskDto) {
 
   return (
     <Stack
+      data-testid={`task-${title}`}
       css={{
         border: 'primary',
         borderRadius: 8,
@@ -74,6 +75,7 @@ export function Task({ completed, title, ...rest }: TaskDto) {
             <Edit2Icon {...smallIconProps} />
           </Button>
           <Button
+            data-testid={'delete-task-button'}
             variant={'icon'}
             onClick={() =>
               deleteTaskCmd.command({
