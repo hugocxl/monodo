@@ -26,7 +26,7 @@ export class TaskMapper implements Mapper<Task> {
         date: taskDateOrError.getValue(),
         title: taskTitleOrError.getValue()
       },
-      raw._id.toString()
+      raw._id?.toString() || null
     )
 
     if (taskOrError.isFailure) {
@@ -42,7 +42,7 @@ export class TaskMapper implements Mapper<Task> {
       _id: task.id,
       completed: task.completed,
       title: task.title.value,
-      date: task.date.value.toString(),
+      date: task.date.value?.toString(),
       userId: task.userId
     }
   }

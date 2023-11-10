@@ -15,7 +15,12 @@ export class TaskDate extends ValueObject<TaskDateProps> {
   }
 
   private static isValidDate(date: string | Date): boolean {
-    return new Date(date).toString() !== 'Invalid Date'
+    try {
+      const d = new Date(date).toString()
+      return d !== 'Invalid Date'
+    } catch (err) {
+      return false
+    }
   }
 
   public static create(date: Date | string): Result<TaskDate> {

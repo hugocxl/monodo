@@ -10,7 +10,10 @@
   "scripts": {
     "dev": "tsup --format=esm --silent --no-dts --watch & node --watch dist/index.mjs",
     "build": "tsup",
-    "start": "node dist/index.mjs"
+    "start": "node dist/index.mjs",
+    "test": "vitest run",
+    "test:dev": "vitest dev -u",
+    "test:coverage": "vitest run --coverage"
   },
   "files": [
     "dist"
@@ -20,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^5",
     "chalk": "^5",
     "compression": "^1",
     "connect-mongo": "^5",
@@ -31,10 +34,10 @@
     "http-status": "^1",
     "joi": "^17",
     "mongoose": "^8",
-    "morgan": "^1.10.0"
+    "morgan": "^1"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.1",
+    "@types/bcrypt": "^5",
     "@types/bcryptjs": "^2",
     "@types/compression": "^1",
     "@types/cookie-parser": "^1",

@@ -2,6 +2,7 @@
 import { Result, AppError, left, right } from '@/shared/core'
 import { Task, TaskDate, TaskTitle } from '@/modules/tasks/domain'
 import { UserDoesntExistError } from './update-task.error'
+import { TaskMapper } from '@/modules/tasks/mappers'
 
 // Types
 import type { UpdateTaskDto, UpdateTaskResponseDto } from './update-task.dto'
@@ -9,7 +10,6 @@ import type { UpdateTaskResponse } from './update-task.response'
 import type { UseCase } from '@/shared/core'
 import type { TasksRepository } from '@/modules/tasks/repos'
 import type { UsersRepository } from '@/modules/users/repos'
-import { TaskMapper } from '@/modules/tasks/mappers'
 
 export class UpdateTaskUseCase
   implements UseCase<UpdateTaskDto, Promise<UpdateTaskResponse>>

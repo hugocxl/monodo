@@ -26,9 +26,7 @@ export class TaskTitle extends ValueObject<TaskTitleProps> {
       return Result.fail<TaskTitle>(propsResult.getError())
     }
     if (!this.isAppropriateLength(title)) {
-      return Result.fail<TaskTitle>(
-        'Password doesnt meet criteria [8 chars min].'
-      )
+      return Result.fail<TaskTitle>('Title doesnt meet criteria [8 chars min].')
     }
 
     return Result.ok<TaskTitle>(
