@@ -50,7 +50,7 @@ export function Navbar() {
         })
       }}
     >
-      <Container bg={'black'}>
+      <Container bg={'bg.secondary'}>
         <Flex
           justify={'space-between'}
           align={'center'}
