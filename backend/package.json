@@ -6,7 +6,6 @@
   "module": "dist/index.mjs",
   "require": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "author": "Hugo Corta <corta.hugo@gmail.com>",
   "scripts": {
     "dev": "tsup --silent --no-dts --watch & node --watch dist/index.js",
@@ -25,7 +24,7 @@
   },
   "dependencies": {
     "bcrypt": "^5",
-    "chalk": "^5",
+    "chalk": "^4",
     "compression": "^1",
     "connect-mongo": "^5",
     "cors": "^2",
