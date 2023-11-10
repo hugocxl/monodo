@@ -17,8 +17,8 @@ export function SignUpForm() {
     }
   })
   const [user, setUser] = useState({
-    email: 'corta.hugo@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   })
 
   const onChangeField = (field: string) => (e: ChangeEvent<HTMLInputElement>) =>

@@ -1,14 +1,14 @@
 // Dependencies
 import { apiClient } from '../../libs'
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '../use-query'
 
 // Types
-import { type UseSuspenseQueryResult } from '@tanstack/react-query'
+import { type UseQueryResult } from '../use-query'
 
 type Data = Awaited<ReturnType<typeof apiClient.users.me>>
 
-export const useUserQuery = (): UseSuspenseQueryResult<Data, Error> => {
-  return useSuspenseQuery({
+export const useUserQuery = (): UseQueryResult<Data, Error> => {
+  return useQuery({
     queryKey: ['users', 'me'],
     queryFn: apiClient.users.me
   })

@@ -12,8 +12,8 @@ import type { ChangeEvent, FormEvent } from 'react'
 export function SignInForm() {
   const navigate = useNavigate()
   const [user, setUser] = useState({
-    email: 'corta.hugo@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   })
   const { command, isPending, error } = useSignInCommand({
     onSuccess: () => {
