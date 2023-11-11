@@ -1,1 +1,1 @@
-web: cd backend && node dist/index.mjs
+web: cd backend && npm run start
