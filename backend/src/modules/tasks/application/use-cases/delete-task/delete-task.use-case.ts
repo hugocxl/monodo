@@ -37,7 +37,10 @@ export class DeleteTaskUseCase
         ) as DeleteTaskResponse
       }
 
-      const task = await this.tasksRepository.getTaskById(deleteTaskDto.id)
+      const task = await this.tasksRepository.getTaskById(
+        deleteTaskDto.id,
+        deleteTaskDto.userId
+      )
 
       const taskFound = !!task
 
@@ -47,7 +50,7 @@ export class DeleteTaskUseCase
         ) as DeleteTaskResponse
       }
 
-      const deletedTask = await this.tasksRepository.delete(task)
+      const deletedTask = await this.tasksRepository.delete(task, task.userId)
 
       return right(
         Result.ok<DeleteTaskResponseDto>(TaskMapper.toDto(deletedTask as Task))

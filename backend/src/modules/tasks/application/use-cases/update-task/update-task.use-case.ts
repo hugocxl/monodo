@@ -68,7 +68,7 @@ export class UpdateTaskUseCase
 
       const task: Task = taskOrError.getValue()
 
-      const updatedTask = await this.tasksRepository.update(task)
+      const updatedTask = await this.tasksRepository.update(task, task.userId)
 
       return right(
         Result.ok<UpdateTaskResponseDto>(TaskMapper.toDto(updatedTask as Task))

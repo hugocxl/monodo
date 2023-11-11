@@ -57,7 +57,8 @@ export class GetTasksByDateUseCase
       }
 
       const tasks = await this.tasksRepository.getTasksByDate(
-        date.value.toString()
+        date.value.toString(),
+        getTasksByDateDto.userId
       )
 
       return right(

@@ -47,7 +47,10 @@ export class SearchTasksUseCase
         ) as SearchTasksResponse
       }
 
-      const tasks = await this.tasksRepository.getTasksByTitle(title.value)
+      const tasks = await this.tasksRepository.getTasksByTitle(
+        title.value,
+        createTaskDto.userId
+      )
 
       const tasksDto = tasks.map(task => TaskMapper.toDto(task))
 

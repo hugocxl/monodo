@@ -13,21 +13,22 @@ export class MongoTasksRepository implements TasksRepository {
     this.model = model
   }
 
-  async getTaskById(id: string) {
-    const task = await this.model.findOne({ _id: id })
+  async getTaskById(id: string, userId: string) {
+    const task = await this.model.findOne({ _id: id, userId })
 
     if (task) return TaskMapper.toDomain(task)
 
     return null
   }
 
-  async getTasksByTitle(titleQuery: string) {
+  async getTasksByTitle(titleQuery: string, userdId: string) {
     const expression = `.*${titleQuery}.*`
     const regexp = new RegExp(expression, 'g')
 
     const tasks = await this.model
       .find({
-        title: regexp
+        title: regexp,
+        userId: userdId
       })
       .exec()
 
@@ -38,10 +39,11 @@ export class MongoTasksRepository implements TasksRepository {
       .map(TaskMapper.toDomain) as Task[]
   }
 
-  async getTasksByDate(date: string) {
+  async getTasksByDate(date: string, userId: string) {
     const tasks = await this.model
       .find({
-        date
+        date,
+        userId
       })
       .exec()
 
@@ -57,15 +59,21 @@ export class MongoTasksRepository implements TasksRepository {
     return TaskMapper.toDomain(dbResponse) as Task
   }
 
-  async update(task: Task) {
+  async update(task: Task, userId: string) {
     const rawTask = await TaskMapper.toPersistence(task)
-    const dbResponse = await this.model.findByIdAndUpdate(task.id, rawTask)
+    const dbResponse = await this.model.findOneAndUpdate(
+      { _id: task.id, userId },
+      rawTask
+    )
 
     return TaskMapper.toDomain(dbResponse) as Task
   }
 
-  async delete(task: Task) {
-    const dbResponse = await this.model.findByIdAndDelete(task.id)
+  async delete(task: Task, userId: string) {
+    const dbResponse = await this.model.findOneAndDelete({
+      _id: task.id,
+      userId
+    })
 
     return TaskMapper.toDomain(dbResponse) as Task
   }
