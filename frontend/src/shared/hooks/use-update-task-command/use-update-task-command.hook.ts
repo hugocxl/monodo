@@ -1,6 +1,8 @@
+// Dependencies
 import { apiClient } from '../../libs'
 import { useCommand, type UseCommandOptions } from '../use-command'
 
+// Types
 type UseUpdateTaskFn = typeof apiClient.tasks.update
 type UseUpdateTaskReturn = Awaited<ReturnType<typeof apiClient.tasks.update>>
 type UseUpdateTaskArgs = Parameters<UseUpdateTaskFn>[0]

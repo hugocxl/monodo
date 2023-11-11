@@ -4,7 +4,7 @@ import {
   useCreateTaskCommand,
   useSelectedDate,
   useUpdateTaskCommand,
-  useUserQuery
+  useUser
 } from '@/shared/hooks'
 
 // Components
@@ -28,10 +28,10 @@ export function TaskModal({ onClose, isOpen, task }: TaskModalProps) {
     date,
     ...task
   })
-  const userQuery = useUserQuery()
+  const [user] = useUser()
   const updateTaskCmd = useUpdateTaskCommand(date, { onSuccess: onClose })
   const createTaskCmd = useCreateTaskCommand(date, {
-    onSuccess: onClose
+    onMutate: onClose
   })
   const isEdit = !!task
   const title = isEdit ? 'Edit Task' : 'Add Task'
@@ -55,12 +55,12 @@ export function TaskModal({ onClose, isOpen, task }: TaskModalProps) {
     if (isEdit) {
       updateTaskCmd.command({
         ...tempTask,
-        userId: userQuery.data?.id as string
+        userId: user?.id as string
       })
     } else {
       createTaskCmd.command({
         ...tempTask,
-        userId: userQuery.data?.id as string
+        userId: user?.id as string
       })
     }
   }

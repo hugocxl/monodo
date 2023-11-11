@@ -1,5 +1,6 @@
 // Dependencies
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useUser } from '..'
 
 // Types
 import type { UseCommandProps, UseCommandResult } from './use-command.types'
@@ -14,10 +15,13 @@ export const useCommand = <Data, Error, Variables>({
   Variables
 > => {
   const queryClient = useQueryClient()
+  const [user] = useUser()
+
+  const mutationKey = [user?.id as string, ...commandKey]
 
   function onSuccess(data: Data, variables: Variables, context: unknown) {
-    if (commandKey) {
-      commandKey.forEach((key: string) =>
+    if (mutationKey) {
+      mutationKey.forEach((key: string) =>
         queryClient.invalidateQueries({ queryKey: [key] })
       )
     }
@@ -34,7 +38,7 @@ export const useCommand = <Data, Error, Variables>({
   } = useMutation<Data, Error, Variables>({
     ...options,
     onSuccess,
-    mutationKey: commandKey,
+    mutationKey,
     mutationFn: commandFn
   })
 

@@ -1,20 +1,16 @@
 // Components
 import { Navigate } from 'react-router-dom'
 import { Tasks, Header, Navbar } from './components'
-import { Grid, SuspenseFallback } from '@/shared/components'
+import { Grid } from '@/shared/components'
 
 // Hooks
-import { useUserQuery } from '@/shared/hooks'
+import { useUser } from '@/shared/hooks'
 
 export function HomePage() {
-  const userQuery = useUserQuery()
+  const [user] = useUser()
 
-  if (userQuery.isError && !userQuery.isFetching) {
+  if (!user) {
     return <Navigate to={'/auth'} />
-  }
-
-  if (!userQuery.data?.id) {
-    return <SuspenseFallback />
   }
 
   return (

@@ -1,5 +1,6 @@
 export * from './use-create-task-command'
 export * from './use-delete-task-command'
+export * from './use-local-storage'
 export * from './use-quote-query'
 export * from './use-search-tasks-command'
 export * from './use-selected-date'

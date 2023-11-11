@@ -4,7 +4,7 @@ import {
   useDeleteTaskCommand,
   useSelectedDate,
   useUpdateTaskCommand,
-  useUserQuery
+  useUser
 } from '@/shared/hooks'
 
 // Types
@@ -12,7 +12,7 @@ import type { TaskDto } from '@/shared/types'
 
 // Components
 import { Stack, Box, Grid, Flex, Button, Text } from '@/shared/components'
-import { TaskModal } from './task-modal'
+import { TaskModal } from '../task-modal/task-modal'
 import { CheckCircle2, CircleIcon, Edit2Icon, TrashIcon } from 'lucide-react'
 
 const smallIconProps = {
@@ -24,7 +24,7 @@ export function Task({ completed, title, ...rest }: TaskDto) {
   const [date] = useSelectedDate()
   const deleteTaskCmd = useDeleteTaskCommand(date)
   const updateTaskCmd = useUpdateTaskCommand(date)
-  const userQuery = useUserQuery()
+  const [user] = useUser()
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   return (
@@ -55,7 +55,7 @@ export function Task({ completed, title, ...rest }: TaskDto) {
             onClick={() => {
               updateTaskCmd.command({
                 ...rest,
-                userId: userQuery.data?.id as string,
+                userId: user?.id as string,
                 completed: !completed,
                 title
               })
@@ -80,7 +80,7 @@ export function Task({ completed, title, ...rest }: TaskDto) {
             onClick={() =>
               deleteTaskCmd.command({
                 ...rest,
-                userId: userQuery.data?.id as string
+                userId: user?.id as string
               })
             }
           >

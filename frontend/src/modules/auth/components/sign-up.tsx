@@ -2,7 +2,7 @@
 import { Button, Form, Input, Text } from '@/shared/components'
 
 // Hooks
-import { useSignUpCommand } from '@/shared/hooks'
+import { useSignUpCommand, useUser } from '@/shared/hooks'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -11,7 +11,8 @@ import type { FormEvent, ChangeEvent } from 'react'
 
 export function SignUpForm() {
   const navigate = useNavigate()
-  const { command, isPending, error } = useSignUpCommand({
+  const [, setAuthUser] = useUser()
+  const { commandAsync, isPending, error } = useSignUpCommand({
     onSuccess: () => {
       navigate(`/`)
     }
@@ -24,10 +25,12 @@ export function SignUpForm() {
   const onChangeField = (field: string) => (e: ChangeEvent<HTMLInputElement>) =>
     setUser({ ...user, [field]: e.target.value })
 
-  function onSubmit(ev: FormEvent<HTMLFormElement>) {
+  async function onSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault()
 
-    command(user)
+    const res = await commandAsync(user)
+
+    if (res.id) setAuthUser(res)
   }
 
   return (

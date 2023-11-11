@@ -2,6 +2,7 @@
 import { apiClient } from '../../libs'
 import { useCommand } from '../use-command'
 
+// Types
 type UseDeleteTaskFn = typeof apiClient.tasks.delete
 type UseDeleteTaskReturn = Awaited<ReturnType<typeof apiClient.tasks.delete>>
 type UseDeleteTaskArgs = Parameters<UseDeleteTaskFn>[0]

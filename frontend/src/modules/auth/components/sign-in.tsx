@@ -1,5 +1,5 @@
 // Hooks
-import { useSignInCommand } from '@/shared/hooks'
+import { useSignInCommand, useUser } from '@/shared/hooks'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -11,11 +11,12 @@ import type { ChangeEvent, FormEvent } from 'react'
 
 export function SignInForm() {
   const navigate = useNavigate()
+  const [, setAuthUser] = useUser()
   const [user, setUser] = useState({
     email: '',
     password: ''
   })
-  const { command, isPending, error } = useSignInCommand({
+  const { commandAsync, isPending, error } = useSignInCommand({
     onSuccess: () => {
       navigate(`/`)
     }
@@ -24,10 +25,12 @@ export function SignInForm() {
   const onChangeField = (field: string) => (e: ChangeEvent<HTMLInputElement>) =>
     setUser({ ...user, [field]: e.target.value })
 
-  function onSubmit(ev: FormEvent<HTMLFormElement>) {
+  async function onSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault()
 
-    command(user)
+    const res = await commandAsync(user)
+
+    if (res.id) setAuthUser(res)
   }
 
   return (

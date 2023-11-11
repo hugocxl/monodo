@@ -2,26 +2,22 @@
 import { styled } from '@styled-system/jsx'
 
 // Hooks
-import {
-  useSelectedDate,
-  useTasksByDateQuery,
-  useUserQuery
-} from '@/shared/hooks'
+import { useSelectedDate, useTasksByDateQuery, useUser } from '@/shared/hooks'
 
 // Components
 import { Stack, Text } from '@/shared/components'
 import { Quote } from './quote'
-import { Task } from '../task'
+import { Task } from '../task/task'
 
 // Utils
 import { getGroupedTasks } from './tasks.utils'
 
 export function Tasks() {
   const [date] = useSelectedDate()
-  const userQuery = useUserQuery()
+  const [user] = useUser()
   const tasks = useTasksByDateQuery({
     date: date,
-    userId: userQuery.data?.id as string
+    userId: user?.id as string
   })
 
   function renderContent() {

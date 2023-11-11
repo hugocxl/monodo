@@ -11,23 +11,20 @@ import {
 } from '@/shared/components'
 
 // Hooks
-import { useState, useRef, memo } from 'react'
-import {
-  useSearchTasksCommand,
-  useSelectedDate,
-  useUserQuery
-} from '@/shared/hooks'
+import { useState, useRef, memo, useEffect } from 'react'
+import { useSearchTasksCommand, useSelectedDate, useUser } from '@/shared/hooks'
 
 // Types
 import type { TaskDto } from '@/shared/types'
 
-export function SearchModal({
-  onClose,
-  ...props
-}: Omit<ModalProps, 'children'>) {
+export function SearchModal({ onClose, isOpen }: Omit<ModalProps, 'children'>) {
   const [search, setSearch] = useState('')
   const searchCmd = useSearchTasksCommand()
-  const userQuery = useUserQuery()
+  const [user] = useUser()
+
+  useEffect(() => {
+    setSearch('')
+  }, [isOpen])
 
   const throttle = (func: () => void, delay: number) => {
     let timeoutId: unknown = null
@@ -59,7 +56,7 @@ export function SearchModal({
   ).current
 
   return (
-    <Modal onClose={onClose} {...props}>
+    <Modal onClose={onClose} isOpen={isOpen}>
       <Stack data-testid={'search-modal'}>
         <SearchResults tasks={searchCmd?.data || []} onClose={onClose} />
         <Input
@@ -70,7 +67,7 @@ export function SearchModal({
             setSearch(ev.target.value)
             onChangeThrottled({
               title: search,
-              userId: userQuery.data?.id
+              userId: user?.id
             })
           }}
         />
@@ -84,38 +81,35 @@ const SearchResults = memo<{ tasks: TaskDto[]; onClose: () => void }>(
     const [, setDate] = useSelectedDate()
 
     return (
-      <Stack>
-        <Text>Found {tasks.length} tasks</Text>
-        <Stack gap={12} py={20} data-testid={'search-list'}>
-          {tasks.map(task => {
-            return (
-              <Stack
-                cursor={'pointer'}
-                key={task.id}
-                onClick={() => {
-                  setDate(task.date)
-                  onClose()
-                }}
-              >
-                <Flex gap={8}>
-                  {task.completed ? (
-                    <CheckCircle2 fill='greenyellow' />
-                  ) : (
-                    <CircleIcon />
-                  )}
-                  <Text fontWeight={'bold'}>{task.title}</Text>
-                </Flex>
-                <Text css={{ textStyle: 'xs', color: 'text.dimmed' }}>
-                  {new Date(task.date).toLocaleString('default', {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric'
-                  })}
-                </Text>
-              </Stack>
-            )
-          })}
-        </Stack>
+      <Stack gap={12} py={20} data-testid={'search-list'}>
+        {tasks.map(task => {
+          return (
+            <Stack
+              cursor={'pointer'}
+              key={task.id}
+              onClick={() => {
+                setDate(task.date)
+                onClose()
+              }}
+            >
+              <Flex gap={8}>
+                {task.completed ? (
+                  <CheckCircle2 fill='greenyellow' />
+                ) : (
+                  <CircleIcon />
+                )}
+                <Text fontWeight={'bold'}>{task.title}</Text>
+              </Flex>
+              <Text css={{ textStyle: 'xs', color: 'text.dimmed' }}>
+                {new Date(task.date).toLocaleString('default', {
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric'
+                })}
+              </Text>
+            </Stack>
+          )
+        })}
       </Stack>
     )
   },

@@ -1,5 +1,7 @@
+// Dependencies
 import { useQuery, type UseQueryResult } from '../use-query'
 
+// Types
 type Quote = {
   author: string
   content: string

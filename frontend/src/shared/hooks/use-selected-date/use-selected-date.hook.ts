@@ -1,3 +1,4 @@
+// Dependencies
 import { useSearchParams } from 'react-router-dom'
 
 export const useSelectedDate = (): [string, (date: Date | string) => void] => {

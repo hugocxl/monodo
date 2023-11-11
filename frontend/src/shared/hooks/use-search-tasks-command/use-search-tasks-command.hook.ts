@@ -1,6 +1,8 @@
+// Dependencies
 import { apiClient } from '../../libs'
 import { useCommand, type UseCommandOptions } from '../use-command'
 
+// Types
 type UseSearchTasksFn = typeof apiClient.tasks.search
 type UseSearchTasksReturn = Awaited<ReturnType<typeof apiClient.tasks.search>>
 type UseSearchTasksArgs = Parameters<UseSearchTasksFn>[0]
