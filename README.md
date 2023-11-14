@@ -7,7 +7,7 @@ The project is organizad in a monorepo structure. It is composed of 2 repos:
 
 ## Main technologies used
 
-* [pnpm](https://pnpm.io/): Dependencies package manager and monorepo orchestrator
+* [Pnpm](https://pnpm.io/): Dependencies package manager and monorepo orchestrator
 * [Vite](https://main.vitejs.dev): Modern frontend tooling with excellent performance
 * [Express](https://expressjs.com/): Fast, unopinionated, minimalist web framework for Node.js
 
@@ -31,8 +31,26 @@ pnpm dev # Dinamically serves the projects content with hot reloading
 pnpm build # Build the project
 pnpm start # Statically serves the build output
 pnpm test # Run the tests
-
-# Additionally, some include specific scripts for their cases (see package.json)
 ```
 
 Remember that all projects can be run in parallel with static and dynamic serving.
+
+## Test
+
+### Backend
+
+``cd backend && px test``
+
+### Frontend
+
+* Start both backend and frontend projects
+
+```bash
+pnpm dev
+```
+
+* Navigate to frontend and run tests (while running in dev mode backend/frontend)
+
+```bash
+cd frontend && pnpm test
+```
