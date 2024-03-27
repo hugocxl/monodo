@@ -1,12 +1,15 @@
 {
+  "etags": {},
+  "projects": {
+    "default": "monodo-5506c"
+  },
   "targets": {
-    "monodo": {
+    "monodo-5506c": {
       "hosting": {
         "frontend": [
-          "monodo"
+          "monodo-5506c"
         ]
       }
     }
-  },
-  "etags": {}
+  }
 }

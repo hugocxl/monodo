@@ -27,7 +27,11 @@
     "types:check": "pnpm types --noEmit",
     "prepare": "husky install"
   },
-  "dependencies": {},
+  "dependencies": {
+    "firebase": "^10",
+    "firebase-admin": "^12",
+    "firebase-functions": "^4"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1",
     "@types/node": "^20",
