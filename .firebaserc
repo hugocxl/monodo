@@ -1,0 +1,12 @@
+{
+  "targets": {
+    "monodo": {
+      "hosting": {
+        "frontend": [
+          "monodo"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

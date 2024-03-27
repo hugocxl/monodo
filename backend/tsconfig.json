@@ -5,6 +5,7 @@
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "outDir": "dist"
   }
 }

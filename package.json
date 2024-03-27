@@ -8,10 +8,10 @@
   "author": "Hugo Corta <corta.hugo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "pnpm -r --parallel --filter=./{backend,frontend,shared}/** dev",
-    "start": "cd backend && npm run start",
-    "build-fast": "pnpm -r --parallel --filter=./{backend,frontend,shared}/** build-fast",
-    "build": "pnpm -r --filter=./{backend,frontend,shared}/** build",
+    "dev": "pnpm -r dev",
+    "start": "pnpm -r start",
+    "build-fast": "pnpm -r --parallel build-fast",
+    "build": "pnpm -r build",
     "test": "vitest run",
     "test:dev": "vitest dev -u",
     "test:coverage": "vitest run --coverage",
@@ -25,30 +25,29 @@
     "format:fix": "pnpm format --write",
     "types": "tsc",
     "types:check": "pnpm types --noEmit",
-    "prepare": "husky install",
-    "heroku-postbuild": "cd backend && npm run build"
+    "prepare": "husky install"
   },
+  "dependencies": {},
   "devDependencies": {
+    "@biomejs/biome": "^1",
     "@types/node": "^20",
     "@types/passport-jwt": "^3",
-    "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/coverage-v8": "^1",
     "dotenv": "^16",
-    "eslint": "^8",
     "eslint-config-prettier": "^9",
+    "eslint": "^8",
+    "firebase-tools": "^13",
     "husky": "^8",
     "lint-staged": "^14",
     "prettier": "^3",
     "rimraf": "^5",
     "tsc-files": "^1.1.4",
-    "tsup": "^7",
+    "tsup": "^8",
     "typescript": "^5",
-    "vitest": "^0"
-  },
-  "engines": {
-    "node": "^18.x"
+    "vitest": "^1"
   }
 }
